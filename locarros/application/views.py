@@ -33,10 +33,10 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        if not re.search('^[\w]{3,20}$', username):
+        if not re.search(r'^[\w]{3,20}$', username):
             return redirect('/login')
 
-        if not re.search('^[\w]{3,20}$', password):
+        if not re.search(r'^[\w]{3,20}$', password):
             return redirect('/login')
 
         user = authenticate(username=username, password=password)
