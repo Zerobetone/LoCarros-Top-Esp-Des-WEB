@@ -20,8 +20,16 @@ O [LOCarros](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB) é sistema 
 * Python (Django)
 * Banco de dados SQLite
 
+## Branches
+
+* [Front-End](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB)
+* [Back-End](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB/tree/back-end)
+* [Diagrama de Classes](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB/tree/Diagram)
+
 ## Executando o sistema
 
 ~~~shell
 git clone https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB.git
 ~~~
+
+(Será adicionado mais comandos após a conclusão do sistema)
