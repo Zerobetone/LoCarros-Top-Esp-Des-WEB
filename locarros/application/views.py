@@ -96,6 +96,8 @@ def register_user(request):
         client.user.save()
         client.save()
 
+        messages.success(request, 'Cadastrado realizado com sucesso!')
+
         return redirect('/login')
         
     return render(request, 'register/index.html')
