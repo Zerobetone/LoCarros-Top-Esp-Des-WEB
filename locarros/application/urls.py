@@ -20,11 +20,12 @@ urlpatterns = [
     path('', index, name='index'),
     path('home/', home, name='home'),
     path('login/', login_user, name='login'),
-    path('employee/login/', employee_login, name='employee-login'),
     path('logout/', logout_user, name='logout'),
     path('register/', register_user, name='register'),
     path('about/', about, name='about'),
     path('services/', services, name='services'),
     path('vehicles/', vehicles, name='vehicles'),
     path('contact/', contact, name='contact'),
+    path('employee/', employee, name='employee'),
+    path('employee/login/', employee_login, name='employee-login'),
 ]

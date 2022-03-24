@@ -21,37 +21,24 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
             <h1 class="logo me-auto">
-                <a href="{% url 'index' %}"><span>Loc</span>arros</a>
+                <a href="{% url 'employee' %}"><span>Loc</span>arros</a>
             </h1>
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="{% url 'employee' %}" class="active">Página Inicial</a></li>
+                    <li><a href="#">Clientes</a></li>
 
                     <li class="dropdown">
-                        <a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#"><span>Veículos</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="team.html">Team</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li class="dropdown">
-                                <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="#">Deep Drop Down 5</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="#">Listar</a></li>
+                            <li><a href="#">Cadastrar</a></li>
                         </ul>
                     </li>
 
-                    <li><a href="services.html">Veículos</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="pricing.html">Cadastrar Produtos</a></li>
-                    <li><a href="alugados.html">Alugados</a></li>
-                    <li><a href="contact.html">Clientes</a></li>
+                    <li><a href="#">Alugados</a></li>
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -68,35 +55,32 @@
     <section id="hero">
         <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active" style="background-image: url('static/company/assets/img/slide/slide-1.jpg');">
+                <div class="carousel-item active" style="background-image: url('../static/company/assets/img/slide/slide-1.jpg');">
                     <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
-                            <h2>Seja Bem vindo(a)<span> a Locarros</span></h2>
-                            <p>Bem vindo(a) a área administrativa de Locarros, nesse ambiente corporativo você poderá desempenhar as princiapais atividades corporativas de gestão da empresa!</p>
-                            <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
+                            <h2>Bem vindo(a), {{ user.username }}.</h2>
+                            <p>Este ambiente é dedicado aos administradores do sistema. Aqui você poderá ver informações dos clientes e dos veículos, assim como editar e deletar os dados.</p>
+                            <div class="text-center"><a href="#" class="btn-get-started">Ler mais</a></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('static/company/assets/img/slide/slide-2.jpg');">
+                <div class="carousel-item" style="background-image: url('../static/company/assets/img/slide/slide-2.jpg');">
                     <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
-                            <h2>Titulo</h2>
-                            <p>Descrição</p>
-                            <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
+                            <h2>Bem vindo(a), {{ user.username }}.</h2>
+                            <p>Este ambiente é dedicado aos administradores do sistema. Aqui você poderá ver informações dos clientes e dos veículos, assim como editar e deletar os dados.</p>
+                            <div class="text-center"><a href="#" class="btn-get-started">Ler mais</a></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('static/company/assets/img/slide/slide-3.jpg');">
+                <div class="carousel-item" style="background-image: url('../static/company/assets/img/slide/slide-3.jpg');">
                     <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
-                            <h2>Sequi ea ut et est quaerat</h2>
-                            <p>
-                                Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus
-                                deleniti vel. Minus et tempore modi architecto.
-                            </p>
-                            <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
+                            <h2>Bem vindo(a), {{ user.username }}.</h2>
+                            <p>Este ambiente é dedicado aos administradores do sistema. Aqui você poderá ver informações dos clientes e dos veículos, assim como editar e deletar os dados.</p>
+                            <div class="text-center"><a href="#" class="btn-get-started">Ler mais</a></div>
                         </div>
                     </div>
                 </div>
@@ -119,21 +103,15 @@
             <div class="container" data-aos="fade-up">
                 <div class="row content">
                     <div class="col-lg-6" data-aos="fade-right">
-                        <h2>A melhocadora de carros da Ibiapaba</h2>
+                        <h2>A melhor locadora de veículos da Serra da Ibiapaba</h2>
                         <h3>Desde 2002 fornecendo o melhor serviço da região</h3>
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
-                        <p>
-                            texto texto
-                        </p>
                         <ul>
                             <li><i class="ri-check-double-line"></i>Missão</li>
-                            <li><i class="ri-check-double-line"></i> Visão</li>
-                            <li><i class="ri-check-double-line"></i> Valores</li>
+                            <li><i class="ri-check-double-line"></i>Visão</li>
+                            <li><i class="ri-check-double-line"></i>Valores</li>
                         </ul>
-                        <p class="fst-italic">
-                            mais texto mais texto
-                        </p>
                     </div>
                 </div>
             </div>
@@ -155,8 +133,8 @@
                                 </svg>
                                 <i class="bx bxl-dribbble"></i>
                             </div>
-                            <h4><a href="">Titulo</a></h4>
-                            <p>Descrição</p>
+                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
+                            <p>Lorem ipsum dolor sit amet.</p>
                         </div>
                     </div>
 
@@ -173,8 +151,8 @@
                                 </svg>
                                 <i class="bx bx-file"></i>
                             </div>
-                            <h4><a href="">Isso ....</a></h4>
-                            <p>Mais Texto</p>
+                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
+                            <p>Lorem ipsum dolor sit amet.</p>
                         </div>
                     </div>
 
@@ -191,8 +169,8 @@
                                 </svg>
                                 <i class="bx bx-tachometer"></i>
                             </div>
-                            <h4><a href="">Titulo</a></h4>
-                            <p>Mais Texto</p>
+                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
+                            <p>Lorem ipsum dolor sit amet.</p>
                         </div>
                     </div>
 
@@ -209,8 +187,8 @@
                                 </svg>
                                 <i class="bx bx-layer"></i>
                             </div>
-                            <h4><a href="">Titulo</a></h4>
-                            <p>Mais Texto</p>
+                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
+                            <p>Lorem ipsum dolor sit amet.</p>
                         </div>
                     </div>
 
@@ -227,8 +205,8 @@
                                 </svg>
                                 <i class="bx bx-slideshow"></i>
                             </div>
-                            <h4><a href="">Titulo</a></h4>
-                            <p>Mais Texto</p>
+                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
+                            <p>Lorem ipsum dolor sit amet.</p>
                         </div>
                     </div>
 
@@ -245,7 +223,7 @@
                                 </svg>
                                 <i class="bx bx-arch"></i>
                             </div>
-                            <h4><a href="">Titulo</a></h4>
+                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
                             <p>Lorem ipsum dolor sit amet.</p>
                         </div>
                     </div>

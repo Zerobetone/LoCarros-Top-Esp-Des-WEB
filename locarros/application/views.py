@@ -23,6 +23,18 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+def employee(request):
+    if not request.user.is_authenticated:
+        return redirect('/home')
+
+    user = User.objects.get(id=request.user.id)
+
+    context = {
+        'user': user
+    }
+
+    return render(request, 'employee/index.html', context)
+
 @login_required(login_url='/login')
 def logout_user(request):
     logout(request)
@@ -122,7 +134,7 @@ def register_user(request):
         client.user.save()
         client.save()
 
-        messages.success(request, 'Cadastrado realizado com sucesso!')
+        messages.success(request, 'Cadastro realizado com sucesso!')
 
         return redirect('/login')
         
