@@ -51,7 +51,8 @@ def login_user(request):
 
 def register_user(request):
     if request.method == 'POST':
-        name = request.POST['name']
+        first_name = request.POST['first-name']
+        last_name = request.POST['last-name']
         username = request.POST['username']
         email = request.POST['email']
         telephone = request.POST['telephone']
@@ -59,7 +60,10 @@ def register_user(request):
         cnh = request.POST['cnh']
         password = request.POST['password']
 
-        if not re.search(r'^[a-zA-Z ]{3,50}$', name):
+        if not re.search(r'^[a-zA-Z ]{3,50}$', first_name):
+            return redirect('/register')
+
+        if not re.search(r'^[a-zA-Z ]{3,50}$', last_name):
             return redirect('/register')
 
         if not re.search(r'^[\w]{3,20}$', username):
@@ -89,7 +93,7 @@ def register_user(request):
             return redirect('/register')
 
         client = Client()
-        client.user = User.objects.create_user(first_name=name, username=username, email=email, password=password)
+        client.user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
         client.telephone = telephone
         client.birth_date = birth_date
         client.cnh = cnh
@@ -101,3 +105,8 @@ def register_user(request):
         return redirect('/login')
         
     return render(request, 'register/index.html')
+
+@login_required(login_url='/login')
+def about(request):
+    return render(request, 'about/index.html')
+
