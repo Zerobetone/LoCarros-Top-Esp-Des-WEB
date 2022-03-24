@@ -49,6 +49,28 @@ def login_user(request):
         
     return render(request, 'login/index.html')
 
+def employee_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if not re.search(r'^[\w]{3,20}$', username):
+            return redirect('/login')
+
+        if not re.search(r'^[\w]{3,20}$', password):
+            return redirect('/login')
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_superuser:
+                login(request, user)
+                return redirect('/employee')
+
+        messages.error(request, 'Usuário ou senha inválidos.')
+        
+    return render(request, 'employee/login/index.html')
+
 def register_user(request):
     if request.method == 'POST':
         first_name = request.POST['first-name']

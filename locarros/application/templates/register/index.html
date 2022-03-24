@@ -15,7 +15,7 @@
     <div id="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'register' %}">
                     <img src="{% static 'assets/logoti.png' %}" class="img-fluid" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
                             <a class="nav-link" href="{% url 'home' %}#">Contato</a>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="btn btn-outline-dark ml-2" style="font-size: 17px;" onclick="location.href='#'">Administrador</button>
+                            <button type="button" class="btn btn-outline-dark ml-2" style="font-size: 17px;" onclick="employee_login()">Administrador</button>
                         </li>
                     </ul>
                 </div>
@@ -47,9 +47,9 @@
         </div>
     </div>
 
-    <section>
+    <section class="vh-100">
         <div class="container-fluid h-custom">
-            <div class="row d-flex justify-content-center align-items-center">
+            <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-md-9 col-lg-6 col-xl-5">
                     <img src="{% static 'login.webp' %}" class="img-fluid" alt="Sample image" />
                 </div>
@@ -144,6 +144,12 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function employee_login() {
+            location.href = "{% url 'employee-login' %}";
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
