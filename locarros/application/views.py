@@ -110,3 +110,14 @@ def register_user(request):
 def about(request):
     return render(request, 'about/index.html')
 
+@login_required(login_url='/login')
+def services(request):
+    return render(request, 'services/index.html')
+
+@login_required(login_url='/login')
+def vehicles(request):
+    return render(request, 'vehicles/index.html')
+
+@login_required(login_url='/login')
+def contact(request):
+    return render(request, 'contact/index.html')

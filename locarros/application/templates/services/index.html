@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Página Inicial - LOCarros</title>
+    <title>Serviços - LOCarros</title>
     <link href="{% static 'company/assets/img/favicon.png' %}" rel="icon" />
+    <link href="{% static 'company/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
     <link href="{% static 'company/assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet" />
     <link href="{% static 'company/assets/vendor/aos/aos.css' %}" rel="stylesheet" />
@@ -26,7 +27,7 @@
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a href="{% url 'index' %}" class="active">Página Inicial</a></li>
+                    <li><a href="{% url 'index' %}">Página Inicial</a></li>
 
                     <li class="dropdown">
                         <a href="#"><span>Sobre</span> <i class="bi bi-chevron-down"></i></a>
@@ -36,7 +37,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="{% url 'services' %}">Serviços</a></li>
+                    <li><a href="{% url 'services' %}" class="active">Serviços</a></li>
                     <li><a href="{% url 'vehicles' %}">Veículos</a></li>
                     <li><a href="{% url 'contact' %}">Contato</a></li>
                     <li><a href="{% url 'logout' %}">Sair</a></li>
@@ -53,67 +54,15 @@
         </div>
     </header>
 
-    <section id="hero">
-        <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active" style="background-image: url('static/company/assets/img/slide/slide-1.jpg');">
-                    <div class="carousel-container">
-                        <div class="carousel-content animate__animated animate__fadeInUp">
-                            <h2>Bem vindo(a), {{ user.first_name }}.</h2>
-                            <p>Na LOCarros você poderá encontrar os melhores veículos para alugar!</p>
-                            <div class="text-center"><a href="#" class="btn-get-started">Ler mais</a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item" style="background-image: url('static/company/assets/img/slide/slide-2.jpg');">
-                    <div class="carousel-container">
-                        <div class="carousel-content animate__animated animate__fadeInUp">
-                            <h2>Bem vindo(a), {{ user.first_name }}.</h2>
-                            <p>Na LOCarros você poderá encontrar os melhores veículos para alugar!</p>
-                            <div class="text-center"><a href="#" class="btn-get-started">Ler mais</a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item" style="background-image: url('static/company/assets/img/slide/slide-3.jpg');">
-                    <div class="carousel-container">
-                        <div class="carousel-content animate__animated animate__fadeInUp">
-                            <h2>Bem vindo(a), {{ user.first_name }}.</h2>
-                            <p>Na LOCarros você poderá encontrar os melhores veículos para alugar!</p>
-                            <div class="text-center"><a href="#" class="btn-get-started">Ler mais</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <a class="carousel-control-prev" href="#heroCarofl" role="button" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-            </a>
-
-            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-                <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-            </a>
-
-            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-        </div>
-    </section>
-
     <main id="main">
-        <section id="about-us" class="about-us">
-            <div class="container" data-aos="fade-up">
-                <div class="row content">
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <h2>A melhor locadora de carros da Serra da Ibiapaba</h2>
-                        <h3>Desde 2002 fornecendo o melhor serviço da região</h3>
-                    </div>
-                    <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
-                        <ul>
-                            <li><i class="ri-check-double-line"></i>Missão</li>
-                            <li><i class="ri-check-double-line"></i>Visão</li>
-                            <li><i class="ri-check-double-line"></i>Valores</li>
-                        </ul>
-                    </div>
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Serviços</h2>
+                    <ol>
+                        <li><a href="{% url 'index' %}">Início</a></li>
+                        <li>Serviços</li>
+                    </ol>
                 </div>
             </div>
         </section>
@@ -134,8 +83,8 @@
                                 </svg>
                                 <i class="bx bxl-dribbble"></i>
                             </div>
-                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <h4><a href="">Lorem Ipsum</a></h4>
+                            <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
                         </div>
                     </div>
 
@@ -152,8 +101,8 @@
                                 </svg>
                                 <i class="bx bx-file"></i>
                             </div>
-                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <h4><a href="">Sed Perspiciatis</a></h4>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
                         </div>
                     </div>
 
@@ -170,8 +119,8 @@
                                 </svg>
                                 <i class="bx bx-tachometer"></i>
                             </div>
-                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <h4><a href="">Magni Dolores</a></h4>
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
                         </div>
                     </div>
 
@@ -188,8 +137,8 @@
                                 </svg>
                                 <i class="bx bx-layer"></i>
                             </div>
-                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <h4><a href="">Nemo Enim</a></h4>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
                         </div>
                     </div>
 
@@ -206,8 +155,8 @@
                                 </svg>
                                 <i class="bx bx-slideshow"></i>
                             </div>
-                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <h4><a href="">Dele Cardo</a></h4>
+                            <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
                         </div>
                     </div>
 
@@ -224,115 +173,95 @@
                                 </svg>
                                 <i class="bx bx-arch"></i>
                             </div>
-                            <h4><a href="#">Lorem, ipsum dolor.</a></h4>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <h4><a href="">Divera Don</a></h4>
+                            <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="portfolio">
-            <div class="container">
-                <div class="row" data-aos="fade-up">
-                    <div class="col-lg-12 d-flex justify-content-center">
-                        <ul id="portfolio-flters">
-                            <li data-filter="*" class="filter-active">All</li>
-                            <li data-filter=".filter-app">App</li>
-                            <li data-filter=".filter-card">Card</li>
-                            <li data-filter=".filter-web">Web</li>
-                        </ul>
-                    </div>
+        <section id="features" class="features">
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Features</h2>
+                    <p>
+                        Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit
+                        in iste officiis commodi quidem hic quas.
+                    </p>
                 </div>
 
-                <div class="row portfolio-container" data-aos="fade-up">
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-1.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>App 1</h4>
-                            <p>App</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-1.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                <div class="row">
+                    <div class="col-lg-3 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-store-line" style="color: #ffbb2c;"></i>
+                            <h3><a href="">Lorem Ipsum</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-2.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-2.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+                        <div class="icon-box">
+                            <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
+                            <h3><a href="">Dolor Sitema</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-3.png' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>App 2</h4>
-                            <p>App</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-3.png' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+                        <div class="icon-box">
+                            <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
+                            <h3><a href="">Sed perspiciatis</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-4.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>Card 2</h4>
-                            <p>Card</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-4.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <i class="ri-paint-brush-line" style="color: #e361ff;"></i>
+                            <h3><a href="">Magni Dolores</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-5.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>Web 2</h4>
-                            <p>Web</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-5.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-database-2-line" style="color: #47aeff;"></i>
+                            <h3><a href="">Nemo Enim</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-6.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>App 3</h4>
-                            <p>App</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-6.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-gradienter-line" style="color: #ffa76e;"></i>
+                            <h3><a href="">Eiusmod Tempor</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-7.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>Card 1</h4>
-                            <p>Card</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-7.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+                            <h3><a href="">Midela Teren</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-details-8.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>Card 3</h4>
-                            <p>Card</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-8.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-price-tag-2-line" style="color: #4233ff;"></i>
+                            <h3><a href="">Pira Neve</a></h3>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <img src="{% static 'company/assets/img/portfolio/portfolio-9.jpg' %}" class="img-fluid" alt="" />
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <a href="{% static 'company/assets/img/portfolio/portfolio-details-9.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-anchor-line" style="color: #b2904f;"></i>
+                            <h3><a href="">Dirada Pack</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-disc-line" style="color: #b20969;"></i>
+                            <h3><a href="">Moton Ideal</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-base-station-line" style="color: #ff5828;"></i>
+                            <h3><a href="">Verdo Park</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 mt-4">
+                        <div class="icon-box">
+                            <i class="ri-fingerprint-line" style="color: #29cc61;"></i>
+                            <h3><a href="">Flavor Nivelanda</a></h3>
                         </div>
                     </div>
                 </div>
@@ -347,13 +276,41 @@
                     <div class="col-lg-3 col-md-6 footer-contact">
                         <h3>Locarros</h3>
                         <p>
+                            A108 Adam Street <br />
+                            New York, NY 535022<br />
+                            United States <br />
                             <br />
-                            Tianguá, Campus<br />
-                            Ceará<br />
-                            <br />
-                            <strong>Phone:</strong> +55 88999 9999<br />
-                            <strong>Email:</strong> locarrostiangua@email.com<br />
+                            <strong>Phone:</strong> +1 5589 55488 55<br />
+                            <strong>Email:</strong> info@example.com<br />
                         </p>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Join Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <form action="" method="post"><input type="email" name="email" /><input type="submit" value="Subscribe" /></form>
                     </div>
                 </div>
             </div>
