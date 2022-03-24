@@ -1,31 +1,27 @@
-# LoCarros-Top-Esp-Des-WEB
-|||| ATIVIDADE AVALIATIVA ||||
-Disciplina: Topicos especiais em Desenvolvimento WEB
-8º SEMSETRE - BACHARELADO EM CIÊNCIAS DA COMPUTAÇÃO
-INSTITUTO FERAL DO CEARÁ CAMPUS TIANGUÁ
+# LOCarros
 
-Este Repositório conta com a implementação de um sistema WEB para locação de veículos
-utilizado o nome fantasia LocArros para ilustrar a ferramenta. 
-Nesse repositório serão implementadas tecnologias referente a 
-<h1><center>LOCARROS</h1>
+Disciplina: Tópicos Especiais em Desenvolvimento Web (8° semestre)
 
-Sistema simples para controle de lOCAÇÃO DE VEÍCULOS  e também para pratica de criação de CRUD's com Django.
+Curso: Ciência da Computação - Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE)
 
-<h2>Linguagens utilizadas</h2>
+O [LOCarros](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB) é sistema simples para o controle de locação de veículos desenvolvido com Bootstrap e Django.
 
-* HTML, CSS, JavaScript (Front-End);
-* Bootstrap (Front-End);
-* Python (Django);
-* Banco de dados SQLite;
+## Equipe
 
-<h2>Clonar repositório</h2>
+* [Bruno Brito](https://github.com/Brunostd)
+* [José Roberto](https://github.com/Zerobetone)
+* [Lucas Araújo](https://github.com/lucapwn)
+* [Maria Madalena](https://github.com/Maria-collab)
 
-* git clone ;
+## Tecnologias
 
-<h2>Como utilizar</h2>
+* HTML, CSS, JavaScript
+* Bootstrap
+* Python (Django)
+* Banco de dados SQLite
 
-1º Acessar o ambiente virtual <br>
-2ª Instalar as bibliotecas utilizadas no projeto; (pip install -r requirements.txt);<br>
-3º Pronto é só rodar o servidor (python manage.py runserver) e acessar a página principal: http://127.0.0.1:8000/.
+## Executando o sistema
 
-OBS.: TODOS OS COMANDOS CITADOS ACIMA SÃO ESCRITOS ATRAVÉS DO TERMINAL.
+~~~shell
+git clone https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB.git
+~~~
