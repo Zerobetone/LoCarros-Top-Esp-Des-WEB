@@ -21,12 +21,12 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
             <h1 class="logo me-auto">
-                <a href="{% url 'employee' %}"><span>Loc</span>arros</a>
+                <a href="{% url 'index' %}"><span>Loc</span>arros</a>
             </h1>
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a href="{% url 'employee' %}" class="active">Página Inicial</a></li>
+                    <li><a href="{% url 'index' %}" class="active">Página Inicial</a></li>
                     
                     <li class="dropdown">
                         <a href="#"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
@@ -64,7 +64,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Veículos</h2>
                     <ol>
-                        <li><a href="{% url 'employee' %}">Início</a></li>
+                        <li><a href="{% url 'index' %}">Início</a></li>
                         <li>Veículos</li>
                     </ol>
                 </div>
@@ -81,7 +81,7 @@
                     <ul>
                         <li data-aos="fade-up">
                             <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-                                <form action="{% url 'register-vehicles' %}" method="POST" enctype="multipart/form-data">
+                                <form action="{% url 'register-vehicles' %}" enctype="multipart/form-data" method="POST">
                                     {% csrf_token %}
 
                                     {% if messages %}
