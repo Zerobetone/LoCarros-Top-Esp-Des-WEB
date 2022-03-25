@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -172,7 +173,7 @@ def register_vehicles(request):
         except:
             return redirect('/employee/vehicles/register')
 
-        if year < 1951 or year > 2022:
+        if year < 1951 or year > datetime.now().year:
             return redirect('/employee/vehicles/register')
 
         try:
