@@ -15,26 +15,15 @@ def index(request):
         return redirect('/home')
 
     user = User.objects.get(id=request.user.id)
-    client = Client.objects.get(user=user)
 
     context = {
         'user': user,
-        'client': client
     }
+
+    if user.is_superuser:
+        return render(request, 'employee/index.html', context)
 
     return render(request, 'index.html', context)
-
-def employee(request):
-    if not request.user.is_authenticated:
-        return redirect('/home')
-
-    user = User.objects.get(id=request.user.id)
-
-    context = {
-        'user': user
-    }
-
-    return render(request, 'employee/index.html', context)
 
 @login_required(login_url='/login')
 def logout_user(request):
@@ -61,28 +50,6 @@ def login_user(request):
             messages.error(request, 'Usuário ou senha inválidos.')
         
     return render(request, 'login/index.html')
-
-def employee_login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        if not re.search(r'^[\w]{3,20}$', username):
-            return redirect('/login')
-
-        if not re.search(r'^[\w]{3,20}$', password):
-            return redirect('/login')
-
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            if user.is_superuser:
-                login(request, user)
-                return redirect('/employee')
-
-        messages.error(request, 'Usuário ou senha inválidos.')
-        
-    return render(request, 'employee/login/index.html')
 
 def register_user(request):
     if request.method == 'POST':
@@ -143,6 +110,9 @@ def register_user(request):
 
 @login_required(login_url='/employee/login')
 def register_vehicles(request):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
     if request.method == 'POST':
         model = request.POST['model']
         license_plate = request.POST['license-plate']
@@ -199,21 +169,36 @@ def register_vehicles(request):
 
 @login_required(login_url='/login')
 def about(request):
+    if request.user.is_superuser:
+        return redirect('/')
+    
     return render(request, 'about/index.html')
 
 @login_required(login_url='/login')
 def services(request):
+    if request.user.is_superuser:
+        return redirect('/')
+    
     return render(request, 'services/index.html')
 
 @login_required(login_url='/login')
 def vehicles(request):
+    if request.user.is_superuser:
+        return redirect('/')
+    
     return render(request, 'vehicles/index.html')
 
 @login_required(login_url='/login')
 def contact(request):
+    if request.user.is_superuser:
+        return redirect('/')
+    
     return render(request, 'contact/index.html')
 
 @login_required(login_url='/employee/login')
 def employee_vehicles(request):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
     return render(request, 'employee/vehicles/index.html')
 
