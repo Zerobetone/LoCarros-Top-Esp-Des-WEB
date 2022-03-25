@@ -124,32 +124,32 @@ def register_vehicles(request):
         description = request.POST['description']
 
         if not re.search(r'^[\w ]{3,50}$', model):
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         if not re.search(r'^[\w]{7}$', license_plate):
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         if not re.search(r'^(sedan|coupe|sports|crossover|hatchback|convertible|suv|minivan|pickup|jeep)$', type):
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         if not re.search(r'^(png|jpg|jpeg|PNG|JPG|JPEG)$', image_extension):
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         if not re.search(r'^[\w ]{3,255}$', description):
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         try:
             year = int(year)
         except:
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         if year < 1951 or year > datetime.now().year:
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         try:
             daily_rate = float(daily_rate)
         except:
-            return redirect('/employee/vehicles/register')
+            return redirect('/register/vehicles')
 
         vehicle = Vehicle()
         vehicle.model = model
@@ -163,9 +163,9 @@ def register_vehicles(request):
 
         messages.success(request, 'Cadastro realizado com sucesso!')
 
-        return redirect('/employee/vehicles/register')
+        return redirect('/register/vehicles')
 
-    return render(request, 'employee/register/index.html')
+    return render(request, 'employee/vehicles/register/index.html')
 
 @login_required(login_url='/login')
 def about(request):
@@ -223,3 +223,17 @@ def employee_login(request):
         messages.error(request, 'Usuário ou senha inválidos.')
         
     return render(request, 'employee/login/index.html')
+
+@login_required(login_url='/employee/login')
+def employee_leases(request):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
+    return render(request, 'employee/leases/index.html')
+
+@login_required(login_url='/employee/login')
+def register_leases(request):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
+    return render(request, 'employee/leases/register/index.html')
