@@ -1,9 +1,10 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
-def upload_image(request, file_name):
-    return f'{request.user}-{file_name}'
+def upload_image(request, image):
+    image_extension = image.split('.')[-1]
+    return f'{uuid.uuid4()}.{image_extension}'
 
 class Client(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -35,6 +36,7 @@ class Vehicle(models.Model):
     type = models.CharField(max_length=11, blank=True, choices=CHOICES, default='')
     daily_rate = models.FloatField(blank=True)
     image = models.ImageField(upload_to=upload_image, default='default.png')
+    description = models.CharField(max_length=255, blank=True, default='')
 
     def __str__(self):
         return str(self.model)

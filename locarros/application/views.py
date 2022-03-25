@@ -140,6 +140,62 @@ def register_user(request):
         
     return render(request, 'register/index.html')
 
+@login_required(login_url='/employee/login')
+def register_vehicles(request):
+    if request.method == 'POST':
+        model = request.POST['model']
+        license_plate = request.POST['license-plate']
+        type = request.POST['type']
+        year = request.POST['year']
+        daily_rate = request.POST['daily-rate']
+        image = request.FILES['image']
+        image_extension = str(request.FILES['image']).split('.')[-1]
+        description = request.POST['description']
+
+        if not re.search(r'^[\w ]{3,50}$', model):
+            return redirect('/employee/vehicles/register')
+
+        if not re.search(r'^[\w]{7}$', license_plate):
+            return redirect('/employee/vehicles/register')
+
+        if not re.search(r'^(sedan|coupe|sports|crossover|hatchback|convertible|suv|minivan|pickup|jeep)$', type):
+            return redirect('/employee/vehicles/register')
+
+        if not re.search(r'^(png|jpg|jpeg|PNG|JPG|JPEG)$', image_extension):
+            return redirect('/employee/vehicles/register')
+
+        if not re.search(r'^[\w ]{3,255}$', description):
+            return redirect('/employee/vehicles/register')
+
+        try:
+            year = int(year)
+        except:
+            return redirect('/employee/vehicles/register')
+
+        if year < 1951 or year > 2022:
+            return redirect('/employee/vehicles/register')
+
+        try:
+            daily_rate = float(daily_rate)
+        except:
+            return redirect('/employee/vehicles/register')
+
+        vehicle = Vehicle()
+        vehicle.model = model
+        vehicle.license_plate = license_plate
+        vehicle.type = type
+        vehicle.year = year
+        vehicle.daily_rate = daily_rate
+        vehicle.image = image
+        vehicle.description = description
+        vehicle.save()
+
+        messages.success(request, 'Cadastro realizado com sucesso!')
+
+        return redirect('/employee/vehicles/register')
+
+    return render(request, 'employee/register/index.html')
+
 @login_required(login_url='/login')
 def about(request):
     return render(request, 'about/index.html')
@@ -155,3 +211,8 @@ def vehicles(request):
 @login_required(login_url='/login')
 def contact(request):
     return render(request, 'contact/index.html')
+
+@login_required(login_url='/employee/login')
+def employee_vehicles(request):
+    return render(request, 'employee/vehicles/index.html')
+
