@@ -28,6 +28,7 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     path('employee/login/', employee_login, name='employee-login'),
     path('employee/leases/', employee_leases, name='employee-leases'),
+    path('employee/clients/', employee_clients, name='employee-clients'),
     path('employee/vehicles/', employee_vehicles, name='employee-vehicles'),
     path('register/vehicles/', register_vehicles, name='register-vehicles'),
     path('register/leases/', register_leases, name='register-leases'),

@@ -14,35 +14,36 @@
     <body>
         <div id="header">
             <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                    <a class="navbar-brand" href="{% url 'index' %}">
-                        <img src="{% static 'assets/logoti.png' %}" class="img-fluid" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'home' %}">Página Inicial</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}#about">Sobre</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}#services">Serviços</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}#vehicles">Veículos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}#">Contato</a>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn btn-outline-dark ml-2" style="font-size: 17px;" onclick="employee_login()">Administrador</button>
-                            </li>
-                        </ul>
-                    </div>
+                <nav id="navbar" class="navbar order-last order-lg-0">
+                    <ul>
+                        <li><a href="{% url 'index' %}" class="active">Página Inicial</a></li>
+                        
+                        <li class="dropdown">
+                            <a href="#"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="{% url 'employee-clients' %}">Listar</a></li>
+                            </ul>
+                        </li>
+    
+                        <li class="dropdown">
+                            <a href="#"><span>Veículos</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="{% url 'employee-vehicles' %}">Listar</a></li>
+                                <li><a href="{% url 'register-vehicles' %}">Cadastrar</a></li>
+                            </ul>
+                        </li>
+    
+                        <li class="dropdown">
+                            <a href="#"><span>Locações</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="{% url 'employee-leases' %}">Listar</a></li>
+                                <li><a href="{% url 'register-leases' %}">Cadastrar</a></li>
+                            </ul>
+                        </li>
+    
+                        <li><a href="{% url 'logout' %}">Sair</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>
             </div>
         </div>

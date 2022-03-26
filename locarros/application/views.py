@@ -242,6 +242,13 @@ def register_leases(request):
     
     return render(request, 'employee/leases/register/index.html')
 
+@login_required(login_url='/employee/login')
+def employee_clients(request):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
+    return render(request, 'employee/clients/index.html')
+
 def api(request):
     if request.method == 'GET':
         vehicles = Vehicle.objects.all()
