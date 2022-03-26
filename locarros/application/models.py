@@ -35,7 +35,7 @@ class Vehicle(models.Model):
 
     type = models.CharField(max_length=11, blank=True, choices=CHOICES, default='')
     daily_rate = models.FloatField(blank=True)
-    image = models.ImageField(upload_to=upload_image, default='default.png')
+    image = models.ImageField(upload_to=upload_image)
     description = models.CharField(max_length=255, blank=True, default='')
 
     def __str__(self):
@@ -45,7 +45,7 @@ class Location(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     lease_date = models.DateField(blank=True)
-    return_date = models.DateField(blank=True)
+    due_date = models.DateField(blank=True)
 
     CHOICES = (
         ('opened', 'Em aberto'),

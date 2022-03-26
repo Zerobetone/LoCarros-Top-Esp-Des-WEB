@@ -74,7 +74,7 @@
         <section id="faq" class="faq section-bg">
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
-                    <h2>Cadastrar Locação</h2>
+                    <h2>Cadastro de Locação</h2>
                 </div>
 
                 <div class="faq-list">
@@ -99,49 +99,60 @@
                                     {% endif %}
 
                                     <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label class="form-label">Modelo</label>
-                                            <input type="text" name="model" class="form-control" minlength="3" maxlength="50" pattern="^[A-Za-z0-9 ]{3,50}$" title="O modelo deve ter apenas letras sem acentos." required />
-                                        </div>
-
-                                        <div class="col-md-6 form-group mt-3 mt-md-0">
-                                            <label class="form-label">Placa</label>
-                                            <input type="text" name="license-plate" class="form-control" minlength="7" maxlength="7" pattern="^[A-Za-z0-9]{7}$" title="A placa deve ter apenas letras e números." required />
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
                                         <div class="col-md-6 form-group mt-md-0">
-                                            <label class="form-label">Tipo</label>
-                                            <select class="form-select" name="type" required>
-                                                <option value="sedan">Sedan</option>
-                                                <option value="coupe">Coupé</option>
-                                                <option value="sports">Esportivo</option>
-                                                <option value="crossover">Crossover</option>
-                                                <option value="hatchback">Hatch</option>
-                                                <option value="convertible">Conversível</option>
-                                                <option value="suv">SUV</option>
-                                                <option value="minivan">Minivan</option>
-                                                <option value="pickup">Picape</option>
-                                                <option value="jeep">Jipe</option>
+                                            <label class="form-label">Cliente</label>
+                                            <select class="form-select" name="client" required>
+                                                <option value="0000">Ana</option>
+                                                <option value="1111">Lucas</option>
+                                                <option value="2222">Marcos</option>
+                                                <option value="3333">Léo</option>
+                                                <option value="4444">Idiney</option>
+                                                <option value="5555">Geovane</option>
+                                                <option value="6666">Vanessa</option>
+                                                <option value="7777">Gabriel</option>
+                                                <option value="8888">Joana</option>
+                                                <option value="9999">Gilvan</option>
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 form-group mt-3 mt-md-0">
-                                            <label class="form-label">Ano</label>
-                                            <input type="number" name="year" class="form-control" min="1951" max="2022" value="2022" title="Informe um ano válido." required />
+                                        <div class="col-md-6 form-group mt-md-0">
+                                            <label class="form-label">Veículo</label>
+                                            <select class="form-select" name="client" required>
+                                                <option value="0000">Ana</option>
+                                                <option value="1111">Lucas</option>
+                                                <option value="2222">Marcos</option>
+                                                <option value="3333">Léo</option>
+                                                <option value="4444">Idiney</option>
+                                                <option value="5555">Geovane</option>
+                                                <option value="6666">Vanessa</option>
+                                                <option value="7777">Gabriel</option>
+                                                <option value="8888">Joana</option>
+                                                <option value="9999">Gilvan</option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="row mt-3">
                                         <div class="col-md-6 form-group mt-md-0">
-                                            <label class="form-label">Diária</label>
-                                            <input type="number" name="daily-rate" class="form-control" step="0.01" value="0.00" title="Informe um valor válido." />
+                                            <label class="form-label">Locação</label>
+                                            <input id="lease-date" type="date" class="form-control" name="lease-date" value="" required>
                                         </div>
 
-                                        <div class="col-md-6 form-group mt-3 mt-md-0">
-                                            <label class="form-label">Imagem</label>
-                                            <input type="file" name="image" accept=".png, .jpg, .jpeg," class="form-control" required />
+                                        <div class="col-md-6 form-group mt-md-0">
+                                            <label class="form-label">Vencimento</label>
+                                            <input type="date" class="form-control" name="due-date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6 form-group mt-md-0">
+                                            <label class="form-label">Diária (R$)</label>
+                                            <input id="daily-rate" type="number" class="form-control" name="daily-rate" step="0.01" value="0.00" readonly>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mt-md-0">
+                                            <label class="form-label">Total (R$)</label>
+                                            <input id="daily-rate" type="number" class="form-control" name="daily-rate" step="0.01" value="0.00" readonly>
                                         </div>
                                     </div>
                                     
@@ -198,6 +209,13 @@
     </footer>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+        var date = new Date();
+        var today = date.getFullYear() + "-" + String(date.getMonth()).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
+        document.getElementById("lease-date").value = today;
+        console.log(window.location.protocol + "//" + window.location.host);
+    </script>
 
     <script src="{% static 'company/assets/vendor/aos/aos.js' %}"></script>
     <script src="{% static 'company/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

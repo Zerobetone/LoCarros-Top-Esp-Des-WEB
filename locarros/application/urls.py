@@ -31,4 +31,5 @@ urlpatterns = [
     path('employee/vehicles/', employee_vehicles, name='employee-vehicles'),
     path('register/vehicles/', register_vehicles, name='register-vehicles'),
     path('register/leases/', register_leases, name='register-leases'),
+    path('api/', api, name='api'),
 ]

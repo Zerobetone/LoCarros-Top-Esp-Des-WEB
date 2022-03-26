@@ -1,9 +1,13 @@
 import re
+import json
 from datetime import datetime
+from textwrap import indent
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.core import serializers
 from django.contrib import messages
 from .models import Client, Vehicle, Location
 
@@ -237,3 +241,10 @@ def register_leases(request):
         return redirect('/')
     
     return render(request, 'employee/leases/register/index.html')
+
+def api(request):
+    if request.method == 'GET':
+        vehicles = Vehicle.objects.all()
+        objects = serializers.serialize('json', vehicles)
+        data = json.dumps(json.loads(objects), indent=4)
+        return HttpResponse(data, content_type='application/json')
