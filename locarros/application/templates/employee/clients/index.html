@@ -69,10 +69,10 @@
         <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Locações</h2>
+                    <h2>Clientes</h2>
                     <ol>
                         <li><a href="{% url 'index' %}">Início</a></li>
-                        <li>Lista de locações</li>
+                        <li>Lista de clientes</li>
                     </ol>
                 </div>
             </div>
@@ -81,20 +81,84 @@
         <section id="faq" class="faq section-bg">
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
-                    <h2>Lista de locações</h2>
+                    <h2>Lista de clientes</h2>
                 </div>
 
                 <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{% static 'company/assets/img/alugado.webp' %}" class="img-fluid rounded-start" />
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Fiat Touro</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Alugado dia 09 de setembro de 2012 - para Antonio Luiz</small></p>
-                        </div>
-                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">CNH</th>
+                                <th scope="col">Nascimento</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Lucas Araújo</td>
+                                <td>lucapwn</td>
+                                <td>luscafter@gmail.com</td>
+                                <td>88994223455</td>
+                                <td>0123456789</td>
+                                <td>04/10/2000</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bi bi-pencil-square" style="color: green; font-size: 19px;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bi bi-trash" style="color: firebrick; font-size: 19px;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Lucas Araújo</td>
+                                <td>lucapwn</td>
+                                <td>luscafter@gmail.com</td>
+                                <td>88994223455</td>
+                                <td>0123456789</td>
+                                <td>04/10/2000</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bi bi-pencil-square" style="color: green; font-size: 19px;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bi bi-trash" style="color: firebrick; font-size: 19px;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Lucas Araújo</td>
+                                <td>lucapwn</td>
+                                <td>luscafter@gmail.com</td>
+                                <td>88994223455</td>
+                                <td>0123456789</td>
+                                <td>04/10/2000</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bi bi-pencil-square" style="color: green; font-size: 19px;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bi bi-trash" style="color: firebrick; font-size: 19px;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
