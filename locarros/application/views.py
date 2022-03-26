@@ -1,3 +1,4 @@
+from http import client
 import re
 import json
 from datetime import datetime
@@ -245,8 +246,87 @@ def register_leases(request):
 def employee_clients(request):
     if not request.user.is_superuser:
         return redirect('/')
+
+    clients = []
+
+    if request.method == 'POST':
+        option = request.POST['option']
+        search = request.POST['search']
+
+        if option == "id":
+            if not re.search(r'^[\d]+$', search):
+                return redirect('/employee/clients')
+
+            user = User.objects.get(id=int(search))
+            clients = Client.objects.get(user=user)
+
+        elif option == "name":
+            if not re.search(r'^[\w ]{1,255}$', search):
+                return redirect('/employee/clients')
+
+            users = []
+            clients = []
+            first_name = search.split(' ')[0]
+            last_name = ' '.join(search.split(' ')[1:])
+
+            if not last_name:
+                users = User.objects.filter(first_name__icontains=first_name)
+            else:
+                users = User.objects.filter(first_name__icontains=first_name, last_name__icontains=last_name)
+
+            for user in users:
+                client = Client.objects.get(user=user.id)
+                clients.append(client)
+
+        elif option == "username":
+            if not re.search(r'^[\w]{3,20}$', search):
+                return redirect('/employee/clients')
+
+            user = User.objects.get(username=search)
+            clients = Client.objects.filter(user=user)
+
+        elif option == "email":
+            if not re.search(r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-Z\.a-zA-Z]{1,3}$', search):
+                return redirect('/employee/clients')
+
+            user = User.objects.get(email=search)
+            clients = Client.objects.filter(user=user)
+
+        elif option == "telephone":
+            if not re.search(r'^[\d]{11}$', search):
+                return redirect('/employee/clients')
+
+            clients = Client.objects.filter(telephone=search)
+
+        elif option == "cnh":
+            if not re.search(r'^[\d]{10}$', search):
+                return redirect('/employee/clients')
+
+            clients = Client.objects.filter(cnh=search) 
+
+        elif option == "birth-date":
+            if not re.search(r'^[\d]{2}/[\d]{2}/[\d]{4}$', search):
+                return redirect('/employee/clients')
+
+            formatted_date = search.split('/')[2] + '-' + search.split('/')[1] + '-' + search.split('/')[0]
+
+            clients = Client.objects.filter(birth_date=formatted_date) 
+        else:
+            return redirect('/employee/clients')
+
+        context = {
+            'clients': clients
+        }
+
+        return render(request, 'employee/clients/index.html', context)
+
+    clients = Client.objects.all()
+
+    context = {
+        'clients': clients
+    }
     
-    return render(request, 'employee/clients/index.html')
+    return render(request, 'employee/clients/index.html', context)
 
 def api(request):
     if request.method == 'GET':

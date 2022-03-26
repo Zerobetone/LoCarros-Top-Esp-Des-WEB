@@ -112,19 +112,19 @@
                         </div>
 
                         <div class="col-md-2 form-group mt-md-0">
-                            <select class="form-select" name="client" required>
-                                <option value="0000">ID</option>
-                                <option value="1111">Nome</option>
-                                <option value="2222">Usuário</option>
-                                <option value="3333">E-mail</option>
-                                <option value="4444">Telefone</option>
-                                <option value="5555">CNH</option>
-                                <option value="6666">Nascimento</option>
+                            <select class="form-select" name="option" required>
+                                <option value="id">ID</option>
+                                <option value="name">Nome</option>
+                                <option value="username">Usuário</option>
+                                <option value="email">E-mail</option>
+                                <option value="telephone">Telefone</option>
+                                <option value="cnh">CNH</option>
+                                <option value="birth-date">Nascimento</option>
                             </select>
                         </div>
 
                         <div class="col-md-4 form-group mt-md-0">
-                            <input type="text" class="form-control" name="search" required>
+                            <input type="text" class="form-control" name="search" pattern="^[A-Za-z0-9 @.-/]{1,255}$" title="Informe apenas letras e números." required>
                         </div>
 
                         <div class="col-md-4 form-group mt-md-0">
@@ -134,7 +134,7 @@
                 </form>
 
                 <div class="row g-0">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="white-space: nowrap;">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -149,63 +149,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Lucas Araújo</td>
-                                <td>lucapwn</td>
-                                <td>luscafter@gmail.com</td>
-                                <td>88994223455</td>
-                                <td>0123456789</td>
-                                <td>04/10/2000</td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bi bi-pencil-square" style="color: green; font-size: 19px;"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bi bi-trash" style="color: firebrick; font-size: 19px;"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Lucas Araújo</td>
-                                <td>lucapwn</td>
-                                <td>luscafter@gmail.com</td>
-                                <td>88994223455</td>
-                                <td>0123456789</td>
-                                <td>04/10/2000</td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bi bi-pencil-square" style="color: green; font-size: 19px;"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bi bi-trash" style="color: firebrick; font-size: 19px;"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Lucas Araújo</td>
-                                <td>lucapwn</td>
-                                <td>luscafter@gmail.com</td>
-                                <td>88994223455</td>
-                                <td>0123456789</td>
-                                <td>04/10/2000</td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bi bi-pencil-square" style="color: green; font-size: 19px;"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bi bi-trash" style="color: firebrick; font-size: 19px;"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            {% for client in clients %}
+                                {% if not client.user.is_superuser %}
+                                    <tr>
+                                        <th scope="row">{{ client.user.id }}</th>
+                                        <td>{{ client.user.first_name }} {{ client.user.last_name }}</td>
+                                        <td>{{ client.user.username }}</td>
+                                        <td>{{ client.user.email }}</td>
+                                        <td>{{ client.telephone }}</td>
+                                        <td>{{ client.cnh }}</td>
+                                        <td>{{ client.birth_date | date:"d/m/Y" }}</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bi bi-pencil-square" style="color: green; font-size: 18px;"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bi bi-trash" style="color: firebrick; font-size: 18px;"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
