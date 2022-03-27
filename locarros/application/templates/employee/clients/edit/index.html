@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Locações - Locarros</title>
+    <title>Editar - Locarros</title>
     <link href="{% static 'company/assets/img/favicon.png' %}" rel="icon" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
     <link href="{% static 'company/assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet" />
@@ -29,14 +29,14 @@
                     <li><a href="{% url 'index' %}">Página Inicial</a></li>
                     
                     <li class="dropdown">
-                        <a href="#" class="active"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="{% url 'employee-clients' %}">Listar</a></li>
                         </ul>
                     </li>
 
                     <li class="dropdown">
-                        <a href="#"><span>Veículos</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#" class="active"><span>Veículos</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="{% url 'employee-vehicles' %}">Listar</a></li>
                             <li><a href="{% url 'register-vehicles' %}">Cadastrar</a></li>
@@ -69,10 +69,10 @@
         <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Locações</h2>
+                    <h2>Cliente</h2>
                     <ol>
                         <li><a href="{% url 'index' %}">Início</a></li>
-                        <li>Lista de locações</li>
+                        <li>Cliente</li>
                     </ol>
                 </div>
             </div>
@@ -81,79 +81,80 @@
         <section id="faq" class="faq section-bg">
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
-                    <h2>Lista de locações</h2>
+                    <h2>Editar cliente</h2>
                 </div>
 
-                <form action="{% url 'employee-clients' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="row mb-5">
-                        <div class="col-md-2 form-group mt-md-1">
-                            <h5>Buscar por:</h5>
-                        </div>
+                <div class="faq-list">
+                    <ul>
+                        <li data-aos="fade-up">
+                            <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                                <form action="{% url 'employee-edit-client' client.user.id %}" method="POST">
+                                    {% csrf_token %}
 
-                        <div class="col-md-2 form-group mt-md-0">
-                            <select class="form-select" name="option" required>
-                                <option value="id">ID</option>
-                                <option value="name">Nome</option>
-                                <option value="username">Usuário</option>
-                                <option value="email">E-mail</option>
-                                <option value="telephone">Telefone</option>
-                                <option value="cnh">CNH</option>
-                                <option value="birth-date">Nascimento</option>
-                            </select>
-                        </div>
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert-button" style="font-size: 14px; background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; box-shadow: none;">
+                                                    {{ message }}
+                                                </div>
+                                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                                <div class="alert alert-success alert-dismissible fade show mb-4" role="alert-button" style="font-size: 14px; background-color: #d4edda; color: #155724; border-color: #c3e6cb; box-shadow: none;">
+                                                    {{ message }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
 
-                        <div class="col-md-4 form-group mt-md-0">
-                            <input type="text" class="form-control" name="search" pattern="^[A-Za-z0-9 @.-/]{1,255}$" title="Informe apenas letras e números." required>
-                        </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label class="form-label">Nome</label>
+                                            <input type="text" name="first-name" class="form-control" value="{{ client.user.first_name }}" minlength="3" maxlength="50" pattern="^[A-Za-z ]{3,50}$" title="O nome deve ter apenas letras sem acentos." required />
+                                        </div>
 
-                        <div class="col-md-4 form-group mt-md-0">
-                            <button type="submit" class="btn bg-secondary text-white" style="padding-left: 4rem; padding-right: 4rem;">Buscar</button>
-                        </div>
-                    </div>
-                </form>
+                                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                                            <label class="form-label">Sobrenome</label>
+                                            <input type="text" name="last-name" class="form-control" value="{{ client.user.last_name }}" minlength="3" maxlength="50" pattern="^[A-Za-z ]{3,50}$" title="O sobrenome deve ter apenas letras sem acentos." required />
+                                        </div>
+                                    </div>
 
-                <div class="row g-0">
-                    <table class="table table-hover" style="white-space: nowrap;">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Usuário</th>
-                                <th scope="col">E-mail</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">CNH</th>
-                                <th scope="col">Nascimento</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for client in clients %}
-                                {% if not client.user.is_superuser %}
-                                    <tr>
-                                        <th scope="row">{{ client.user.id }}</th>
-                                        <td>{{ client.user.first_name }} {{ client.user.last_name }}</td>
-                                        <td>{{ client.user.username }}</td>
-                                        <td>{{ client.user.email }}</td>
-                                        <td>{{ client.telephone }}</td>
-                                        <td>{{ client.cnh }}</td>
-                                        <td>{{ client.birth_date | date:"d/m/Y" }}</td>
-                                        <td>
-                                            <a href="#">
-                                                <i class="bi bi-pencil-square" style="color: green; font-size: 18px;"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="#">
-                                                <i class="bi bi-trash" style="color: firebrick; font-size: 18px;"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6 form-group">
+                                            <label class="form-label">Usuário</label>
+                                            <input type="text" name="username" class="form-control" value="{{ client.user.username }}" minlength="3" maxlength="20" pattern="^[A-Za-z0-9]{3,20}$" title="O usuário deve ter apenas letras e números." required />
+                                        </div>
+
+                                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                                            <label class="form-label">E-mail</label>
+                                            <input type="email" name="email" class="form-control" value="{{ client.user.email }}" title="Informe um e-mail válido." required />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6 form-group">
+                                            <label class="form-label">Telefone</label>
+                                            <input type="number" name="telephone" class="form-control" value="{{ client.telephone }}" minlength="11" maxlength="11" pattern="^[0-9]{3,11}$" title="O telefone deve ter apenas números." required />
+                                        </div>
+
+                                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                                            <label class="form-label">Nascimento</label>
+                                            <input type="date" name="birth-date" class="form-control" value="{{ client.birth_date | date:'Y-m-d' }}" title="Informe uma data válida." required />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6 form-group">
+                                            <label class="form-label">CNH</label>
+                                            <input type="number" name="cnh" class="form-control" value="{{ client.cnh }}" minlength="10" maxlength="10" pattern="^[0-9]{3,10}$" title="A CNH deve ter apenas números." required />
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center text-lg-start mt-3 pt-2">
+                                        <button type="submit" class="btn bg-secondary text-white" style="padding-left: 4rem; padding-right: 4rem;">Atualizar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -177,7 +178,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container d-md-flex py-4">
             <div class="me-md-auto text-center text-md-start">
                 <div class="copyright">

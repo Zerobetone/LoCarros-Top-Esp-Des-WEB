@@ -14,23 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import * 
+from . import views 
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('home/', home, name='home'),
-    path('login/', login_user, name='login'),
-    path('logout/', logout_user, name='logout'),
-    path('register/', register_user, name='register'),
-    path('about/', about, name='about'),
-    path('services/', services, name='services'),
-    path('vehicles/', vehicles, name='vehicles'),
-    path('contact/', contact, name='contact'),
-    path('employee/login/', employee_login, name='employee-login'),
-    path('employee/leases/', employee_leases, name='employee-leases'),
-    path('employee/clients/', employee_clients, name='employee-clients'),
-    path('employee/vehicles/', employee_vehicles, name='employee-vehicles'),
-    path('register/vehicles/', register_vehicles, name='register-vehicles'),
-    path('register/leases/', register_leases, name='register-leases'),
-    path('api/', api, name='api'),
+    path('', views.index, name='index'),
+    path('home/', views.home, name='home'),
+    path('login/', views.login_user, name='login'),
+    path('logout/', views.logout_user, name='logout'),
+    path('register/', views.register_user, name='register'),
+    path('about/', views.about, name='about'),
+    path('services/', views.services, name='services'),
+    path('vehicles/', views.vehicles, name='vehicles'),
+    path('contact/', views.contact, name='contact'),
+    path('employee/login/', views.employee_login, name='employee-login'),
+    path('employee/leases/', views.employee_leases, name='employee-leases'),
+    path('employee/clients/', views.employee_clients, name='employee-clients'),
+    path('employee/edit/client/<int:id>/', views.edit_client, name='employee-edit-client'),
+    path('employee/vehicles/', views.employee_vehicles, name='employee-vehicles'),
+    path('register/vehicles/', views.register_vehicles, name='register-vehicles'),
+    path('register/leases/', views.register_leases, name='register-leases'),
+    path('api/', views.api, name='api'),
 ]

@@ -1,4 +1,3 @@
-from http import client
 import re
 import json
 from datetime import datetime
@@ -254,18 +253,17 @@ def employee_clients(request):
         search = request.POST['search']
 
         if option == "id":
-            if not re.search(r'^[\d]+$', search):
+            if not re.search(r'^[\d]$', search):
                 return redirect('/employee/clients')
 
             user = User.objects.get(id=int(search))
-            clients = Client.objects.get(user=user)
+            clients = Client.objects.filter(user=user)
 
         elif option == "name":
             if not re.search(r'^[\w ]{1,255}$', search):
                 return redirect('/employee/clients')
 
             users = []
-            clients = []
             first_name = search.split(' ')[0]
             last_name = ' '.join(search.split(' ')[1:])
 
@@ -327,6 +325,73 @@ def employee_clients(request):
     }
     
     return render(request, 'employee/clients/index.html', context)
+
+@login_required(login_url='/employee/login')
+def edit_client(request, id):
+    if not re.search(r'^[\d]+$', str(id)):
+        return redirect(f'/employee/clients')
+
+    if not User.objects.filter(id=id).count():
+        messages.error(request, 'Este usuário não existe.')
+        return redirect(f'/employee/clients')
+
+    user = User.objects.get(id=id)
+    client = Client.objects.filter(user=user)[0]
+    
+    if request.method == 'POST':
+        first_name = request.POST['first-name']
+        last_name = request.POST['last-name']
+        username = request.POST['username']
+        email = request.POST['email']
+        telephone = request.POST['telephone']
+        birth_date = request.POST['birth-date']
+        cnh = request.POST['cnh']
+
+        if not re.search(r'^[a-zA-Z ]{3,50}$', first_name):
+            return redirect(f'/employee/edit/client/{id}')
+
+        if not re.search(r'^[a-zA-Z ]{3,50}$', last_name):
+            return redirect(f'/employee/edit/client/{id}')
+
+        if not re.search(r'^[\w]{3,20}$', username):
+            return redirect(f'/employee/edit/client/{id}')
+
+        if not re.search(r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-Z\.a-zA-Z]{1,3}$', email):
+            return redirect(f'/employee/edit/client/{id}')
+
+        if not re.search(r'^[\d]{11}$', telephone):
+            return redirect(f'/employee/edit/client/{id}')
+
+        if not re.search(r'^[\d]{4}-[\d]{2}-[\d]{2}$', birth_date):
+            return redirect(f'/employee/edit/client/{id}')
+
+        if not re.search(r'^[\d]{10}$', cnh):
+            return redirect(f'/employee/edit/client/{id}')
+
+        if email != user.email: 
+            if User.objects.filter(email=email).count() > 0:
+                messages.error(request, 'Este e-mail já foi cadastrado.')
+                return redirect(f'/employee/edit/client/{id}')
+
+        if username != user.username: 
+            if User.objects.filter(username=username).count() > 0:
+                messages.error(request, 'Este usuário já foi utilizado.')
+                return redirect(f'/employee/edit/client/{id}')
+
+        try:
+            User.objects.filter(id=id).update(first_name=first_name, last_name=last_name, username=username, email=email)
+            Client.objects.filter(user=user).update(telephone=telephone, birth_date=birth_date, cnh=cnh)
+            messages.success(request, 'Dados atualizados com sucesso!')
+        except Exception:
+            messages.error(request, 'Ocorreu algum erro ao atualizar os dados.')
+
+        return redirect(f'/employee/edit/client/{id}')
+
+    context = {
+        'client': client
+    }
+    
+    return render(request, 'employee/clients/edit/index.html', context)
 
 def api(request):
     if request.method == 'GET':
