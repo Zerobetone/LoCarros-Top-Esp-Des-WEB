@@ -97,15 +97,17 @@ def register_user(request):
             messages.error(request, 'Este usuário já foi utilizado.')
             return redirect('/register')
 
-        client = Client()
-        client.user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
-        client.telephone = telephone
-        client.birth_date = birth_date
-        client.cnh = cnh
-        client.user.save()
-        client.save()
-
-        messages.success(request, 'Cadastro realizado com sucesso!')
+        try:
+            client = Client()
+            client.user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
+            client.telephone = telephone
+            client.birth_date = birth_date
+            client.cnh = cnh
+            client.user.save()
+            client.save()
+            messages.success(request, 'Cadastro realizado com sucesso!')
+        except Exception:
+            messages.error(request, 'Ocorreu algum erro ao cadastrar.')
 
         return redirect('/login')
         
@@ -154,17 +156,19 @@ def register_vehicles(request):
         except:
             return redirect('/register/vehicles')
 
-        vehicle = Vehicle()
-        vehicle.model = model
-        vehicle.license_plate = license_plate
-        vehicle.type = type
-        vehicle.year = year
-        vehicle.daily_rate = daily_rate
-        vehicle.image = image
-        vehicle.description = description
-        vehicle.save()
-
-        messages.success(request, 'Cadastro realizado com sucesso!')
+        try:
+            vehicle = Vehicle()
+            vehicle.model = model
+            vehicle.license_plate = license_plate
+            vehicle.type = type
+            vehicle.year = year
+            vehicle.daily_rate = daily_rate
+            vehicle.image = image
+            vehicle.description = description
+            vehicle.save()
+            messages.success(request, 'Cadastro realizado com sucesso!')
+        except Exception:
+            messages.error(request, 'Ocorreu algum erro ao cadastrar.')
 
         return redirect('/register/vehicles')
 
