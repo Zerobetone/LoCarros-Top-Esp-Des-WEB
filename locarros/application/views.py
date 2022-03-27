@@ -414,9 +414,14 @@ def delete_client(request, id):
 
     return redirect('/employee/clients')
 
-def api(request):
+def api_vehicle(request, id):
+    if not re.search(r'^[\d]+$', str(id)):
+        objects = []
+        data = json.dumps(objects, indent=4)
+        return HttpResponse(data, content_type='application/json')
+    
     if request.method == 'GET':
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(id=id)
         objects = serializers.serialize('json', vehicles)
         data = json.dumps(json.loads(objects), indent=4)
         return HttpResponse(data, content_type='application/json')

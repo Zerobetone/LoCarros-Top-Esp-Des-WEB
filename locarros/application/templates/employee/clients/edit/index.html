@@ -29,14 +29,14 @@
                     <li><a href="{% url 'index' %}">Página Inicial</a></li>
                     
                     <li class="dropdown">
-                        <a href="#"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#" class="active"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="{% url 'employee-clients' %}">Listar</a></li>
                         </ul>
                     </li>
 
                     <li class="dropdown">
-                        <a href="#" class="active"><span>Veículos</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#"><span>Veículos</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="{% url 'employee-vehicles' %}">Listar</a></li>
                             <li><a href="{% url 'register-vehicles' %}">Cadastrar</a></li>
