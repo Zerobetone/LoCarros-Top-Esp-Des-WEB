@@ -11,4 +11,4 @@ class VehicleAdmin(admin.ModelAdmin):
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ['status']
+    list_display = ['vehicle']

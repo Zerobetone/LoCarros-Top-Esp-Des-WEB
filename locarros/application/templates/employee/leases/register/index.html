@@ -109,26 +109,20 @@
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Cliente</label>
                                             <select class="form-select" id="client" name="client" required>
-                                                <option value="0000">Ana</option>
-                                                <option value="1111">Lucas</option>
-                                                <option value="2222">Marcos</option>
-                                                <option value="3333">Léo</option>
-                                                <option value="4444">Idiney</option>
-                                                <option value="5555">Geovane</option>
-                                                <option value="6666">Vanessa</option>
-                                                <option value="7777">Gabriel</option>
-                                                <option value="8888">Joana</option>
-                                                <option value="9999">Gilvan</option>
+                                                {% for client in clients %}
+                                                    {% if not client.user.is_superuser %}
+                                                        <option value="{{ client.user.id }}">{{ client.user.first_name }} {{ client.user.last_name }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </select>
                                         </div>
 
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Veículo</label>
                                             <select class="form-select" id="vehicle" name="vehicle" required>
-                                                <option value="18">Mercedes</option>
-                                                <option value="19">BMW</option>
-                                                <option value="20">Ferrari</option>
-                                                <option value="21">Porsche</option>
+                                                {% for vehicle in vehicles %}
+                                                    <option value="{{ vehicle.id }}">{{ vehicle.model }}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                     </div>

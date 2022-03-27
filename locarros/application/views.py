@@ -244,60 +244,65 @@ def register_leases(request):
         return redirect('/')
     
     if request.method == 'POST':
-        model = request.POST['model']
-        license_plate = request.POST['license-plate']
-        type = request.POST['type']
-        year = request.POST['year']
+        client_id = request.POST['client']
+        vehicle_id = request.POST['vehicle']
+        lease_date = request.POST['lease-date']
+        due_date = request.POST['due-date']
         daily_rate = request.POST['daily-rate']
-        image = request.FILES['image']
-        image_extension = str(request.FILES['image']).split('.')[-1]
+        total = request.POST['total']
         description = request.POST['description']
 
-        if not re.search(r'^[\w ]{3,50}$', model):
-            return redirect('/register/vehicles')
+        if not re.search(r'^[\d]+$', client_id):
+            return redirect('/register/leases')
 
-        if not re.search(r'^[\w]{7}$', license_plate):
-            return redirect('/register/vehicles')
+        if not re.search(r'^[\d]+$', vehicle_id):
+            return redirect('/register/leases')
 
-        if not re.search(r'^(sedan|coupe|sports|crossover|hatchback|convertible|suv|minivan|pickup|jeep)$', type):
-            return redirect('/register/vehicles')
+        if not re.search(r'^[\d]{4}-[\d]{2}-[\d]{2}$', lease_date):
+            return redirect('/register/leases')
 
-        if not re.search(r'^(png|jpg|jpeg|PNG|JPG|JPEG)$', image_extension):
-            return redirect('/register/vehicles')
+        if not re.search(r'^[\d]{4}-[\d]{2}-[\d]{2}$', due_date):
+            return redirect('/register/leases')
 
         if not re.search(r'^[\w ]{3,255}$', description):
-            return redirect('/register/vehicles')
+            return redirect('/register/leases')
 
         try:
-            year = int(year)
-        except:
-            return redirect('/register/vehicles')
-
-        if year < 1951 or year > datetime.now().year:
-            return redirect('/register/vehicles')
-
-        try:
+            total = float(total)
             daily_rate = float(daily_rate)
         except:
-            return redirect('/register/vehicles')
+            return redirect('/register/leases')
+
+        user = User.objects.get(id=client_id)
+        client = Client.objects.get(user=user)
+        vehicle = Vehicle.objects.get(id=vehicle_id)
 
         try:
-            vehicle = Vehicle()
-            vehicle.model = model
-            vehicle.license_plate = license_plate
-            vehicle.type = type
-            vehicle.year = year
-            vehicle.daily_rate = daily_rate
-            vehicle.image = image
-            vehicle.description = description
-            vehicle.save()
+            location = Location()
+            location.client = client
+            location.vehicle = vehicle
+            location.lease_date = lease_date
+            location.due_date = due_date
+            location.daily_rate = daily_rate
+            location.total = total
+            location.description = description
+            location.save()
             messages.success(request, 'Cadastro realizado com sucesso!')
-        except Exception:
+        except Exception as error:
+            print(error)
             messages.error(request, 'Ocorreu algum erro ao cadastrar.')
 
-        return redirect('/register/vehicles')
+        return redirect('/register/leases')
 
-    return render(request, 'employee/leases/register/index.html')
+    clients = Client.objects.all()
+    vehicles = Vehicle.objects.all()
+
+    context = {
+        'clients': clients,
+        'vehicles': vehicles
+    }
+
+    return render(request, 'employee/leases/register/index.html', context)
 
 @login_required(login_url='/employee/login')
 def employee_clients(request):
