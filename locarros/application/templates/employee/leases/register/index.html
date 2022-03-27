@@ -88,7 +88,7 @@
                     <ul>
                         <li data-aos="fade-up">
                             <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-                                <form action="{% url 'register-vehicles' %}" enctype="multipart/form-data" method="POST">
+                                <form action="{% url 'register-leases' %}" method="POST">
                                     {% csrf_token %}
 
                                     {% if messages %}
@@ -108,7 +108,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Cliente</label>
-                                            <select class="form-select" name="client" required>
+                                            <select class="form-select" id="client" name="client" required>
                                                 <option value="0000">Ana</option>
                                                 <option value="1111">Lucas</option>
                                                 <option value="2222">Marcos</option>
@@ -124,17 +124,11 @@
 
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Veículo</label>
-                                            <select class="form-select" name="client" required>
-                                                <option value="0000">Ana</option>
-                                                <option value="1111">Lucas</option>
-                                                <option value="2222">Marcos</option>
-                                                <option value="3333">Léo</option>
-                                                <option value="4444">Idiney</option>
-                                                <option value="5555">Geovane</option>
-                                                <option value="6666">Vanessa</option>
-                                                <option value="7777">Gabriel</option>
-                                                <option value="8888">Joana</option>
-                                                <option value="9999">Gilvan</option>
+                                            <select class="form-select" id="vehicle" name="vehicle" required>
+                                                <option value="18">Mercedes</option>
+                                                <option value="19">BMW</option>
+                                                <option value="20">Ferrari</option>
+                                                <option value="21">Porsche</option>
                                             </select>
                                         </div>
                                     </div>
@@ -142,24 +136,24 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Locação</label>
-                                            <input id="lease-date" type="date" class="form-control" name="lease-date" value="" required>
+                                            <input type="date" class="form-control" id="lease-date" name="lease-date" required>
                                         </div>
 
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Vencimento</label>
-                                            <input type="date" class="form-control" name="due-date" required>
+                                            <input type="date" class="form-control" id="due-date" name="due-date" required>
                                         </div>
                                     </div>
 
                                     <div class="row mt-3">
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Diária (R$)</label>
-                                            <input id="daily-rate" type="number" class="form-control" name="daily-rate" step="0.01" value="0.00" readonly>
+                                            <input type="number" class="form-control" id="daily-rate" name="daily-rate" step="0.01" value="0.00" readonly>
                                         </div>
 
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Total (R$)</label>
-                                            <input id="daily-rate" type="number" class="form-control" name="daily-rate" step="0.01" value="0.00" readonly>
+                                            <input type="number" class="form-control" id="total" name="total" step="0.01" value="0.00" readonly>
                                         </div>
                                     </div>
                                     
@@ -218,10 +212,86 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <script>
+        // Função responsável por fazer requisições HTTP do método GET
+
+        function get(url) {
+            var xml = new XMLHttpRequest();
+            xml.open("GET", url, false);
+            xml.send(null);
+            return xml.responseText;
+        }
+
+        // Atribui a data atual ao campo de data de locação
+
         var date = new Date();
         var today = date.getFullYear() + "-" + String(date.getMonth()).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
         document.getElementById("lease-date").value = today;
-        console.log(window.location.protocol + "//" + window.location.host);
+
+        // Faz uma requisição e atribui o valor da diária do primeiro elemento ao campo do valor da diária
+
+        var url = `${window.location.protocol}//${window.location.host}/api/vehicles/`;
+        var response = get(url);
+        var object = JSON.parse(response);
+        var daily_rate = JSON.stringify(object[0]["fields"]["daily_rate"]);
+        document.getElementById("daily-rate").value = daily_rate;
+
+        // Inicializa os valores do campo de data de locação e data de vencimento
+
+        var lease_date = document.getElementById("lease-date").value;
+        var due_date = document.getElementById("due-date").value;
+
+        // Caso o veículo ou uma das datas sejam alteradas, é feita uma nova requisição e atribuído o valor do diária e o valor total aos campos
+
+        document.getElementById("vehicle").addEventListener("change", function() {
+            url = `${window.location.protocol}//${window.location.host}/api/vehicle/${this.value}`;
+            response = get(url);
+            object = JSON.parse(response);
+            daily_rate = JSON.stringify(object[0]["fields"]["daily_rate"]);
+            document.getElementById("daily-rate").value = daily_rate;
+
+            due_date = document.getElementById("due-date").value;
+            lease_date = document.getElementById("lease-date").value;
+
+            if (!due_date) {
+                return;
+            }
+
+            var difference = new Date(due_date) - new Date(lease_date);
+            var days = difference / (1000 * 60 * 60 * 24);
+            var total = parseFloat(days * daily_rate);
+            
+            document.getElementById("total").value = total;
+        });
+
+        // Caso a data de locação seja alterada, os valores dos campos são atualizados para fazer um novo cálculo
+
+        document.getElementById("lease-date").addEventListener("change", function() {
+            lease_date = this.value;
+            due_date = document.getElementById("due-date").value;
+
+            if (!due_date) {
+                return;
+            }
+
+            var difference = new Date(due_date) - new Date(lease_date);
+            var days = difference / (1000 * 60 * 60 * 24);
+            var total = parseFloat(days * daily_rate);
+            
+            document.getElementById("total").value = total;
+        });
+
+        // Caso a data de vencimento seja alterada, os valores dos campos são atualizados para fazer um novo cálculo
+
+        document.getElementById("due-date").addEventListener("change", function() {
+            lease_date = document.getElementById("lease-date").value;
+            due_date = this.value;
+
+            var difference = new Date(due_date) - new Date(lease_date);
+            var days = difference / (1000 * 60 * 60 * 24);
+            var total = parseFloat(days * daily_rate);
+
+            document.getElementById("total").value = total;
+        });
     </script>
 
     <script src="{% static 'company/assets/vendor/aos/aos.js' %}"></script>

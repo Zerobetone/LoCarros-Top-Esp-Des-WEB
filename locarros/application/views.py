@@ -243,6 +243,60 @@ def register_leases(request):
     if not request.user.is_superuser:
         return redirect('/')
     
+    if request.method == 'POST':
+        model = request.POST['model']
+        license_plate = request.POST['license-plate']
+        type = request.POST['type']
+        year = request.POST['year']
+        daily_rate = request.POST['daily-rate']
+        image = request.FILES['image']
+        image_extension = str(request.FILES['image']).split('.')[-1]
+        description = request.POST['description']
+
+        if not re.search(r'^[\w ]{3,50}$', model):
+            return redirect('/register/vehicles')
+
+        if not re.search(r'^[\w]{7}$', license_plate):
+            return redirect('/register/vehicles')
+
+        if not re.search(r'^(sedan|coupe|sports|crossover|hatchback|convertible|suv|minivan|pickup|jeep)$', type):
+            return redirect('/register/vehicles')
+
+        if not re.search(r'^(png|jpg|jpeg|PNG|JPG|JPEG)$', image_extension):
+            return redirect('/register/vehicles')
+
+        if not re.search(r'^[\w ]{3,255}$', description):
+            return redirect('/register/vehicles')
+
+        try:
+            year = int(year)
+        except:
+            return redirect('/register/vehicles')
+
+        if year < 1951 or year > datetime.now().year:
+            return redirect('/register/vehicles')
+
+        try:
+            daily_rate = float(daily_rate)
+        except:
+            return redirect('/register/vehicles')
+
+        try:
+            vehicle = Vehicle()
+            vehicle.model = model
+            vehicle.license_plate = license_plate
+            vehicle.type = type
+            vehicle.year = year
+            vehicle.daily_rate = daily_rate
+            vehicle.image = image
+            vehicle.description = description
+            vehicle.save()
+            messages.success(request, 'Cadastro realizado com sucesso!')
+        except Exception:
+            messages.error(request, 'Ocorreu algum erro ao cadastrar.')
+
+        return redirect('/register/vehicles')
+
     return render(request, 'employee/leases/register/index.html')
 
 @login_required(login_url='/employee/login')
@@ -332,6 +386,9 @@ def employee_clients(request):
 
 @login_required(login_url='/employee/login')
 def edit_client(request, id):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
     if not re.search(r'^[\d]+$', str(id)):
         return redirect('/employee/clients')
 
@@ -399,6 +456,9 @@ def edit_client(request, id):
 
 @login_required(login_url='/employee/login')
 def delete_client(request, id):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
     if not re.search(r'^[\d]+$', str(id)):
         return redirect('/employee/clients')
 
@@ -422,6 +482,13 @@ def api_vehicle(request, id):
     
     if request.method == 'GET':
         vehicles = Vehicle.objects.filter(id=id)
+        objects = serializers.serialize('json', vehicles)
+        data = json.dumps(json.loads(objects), indent=4)
+        return HttpResponse(data, content_type='application/json')
+
+def api_vehicles(request):
+    if request.method == 'GET':
+        vehicles = Vehicle.objects.all()
         objects = serializers.serialize('json', vehicles)
         data = json.dumps(json.loads(objects), indent=4)
         return HttpResponse(data, content_type='application/json')
