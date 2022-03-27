@@ -15,9 +15,10 @@ O [LOCarros](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB) é sistema 
 
 ## Tecnologias
 
-* HTML, CSS, JavaScript
+* HTML, CSS e JavaScript
 * Bootstrap
-* Python (Django)
+* Git e GitHub
+* Python e Django
 * Banco de dados SQLite
 
 ## Branches
@@ -27,9 +28,25 @@ O [LOCarros](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB) é sistema 
 * [Diagrama de Classes](https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB/tree/Diagram)
 
 ## Executando o sistema
-
+### Clone o repositório
 ~~~shell
 git clone https://github.com/Zerobetone/LoCarros-Top-Esp-Des-WEB.git
 ~~~
+### Instale as dependências
+~~~shell
+pip install -r requirements.txt
+~~~
+### Aplique as modificações no banco de dados
+~~~shell
+python manage.py migrate
+~~~
+### Execute o sistema
+~~~shell
+python manage.py runserver
+~~~
 
-(Será adicionado mais comandos após a conclusão do sistema)
+Navegue até [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+**O usuário e a senha do [painel administrativo](http://127.0.0.1:8000/admin) é ```admin```**.
+
+(Será adicionado mais detalhes após a conclusão do sistema)
