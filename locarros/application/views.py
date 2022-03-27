@@ -333,11 +333,11 @@ def employee_clients(request):
 @login_required(login_url='/employee/login')
 def edit_client(request, id):
     if not re.search(r'^[\d]+$', str(id)):
-        return redirect(f'/employee/clients')
+        return redirect('/employee/clients')
 
     if not User.objects.filter(id=id).count():
         messages.error(request, 'Este usuário não existe.')
-        return redirect(f'/employee/clients')
+        return redirect('/employee/clients')
 
     user = User.objects.get(id=id)
     client = Client.objects.filter(user=user)[0]
@@ -396,6 +396,23 @@ def edit_client(request, id):
     }
     
     return render(request, 'employee/clients/edit/index.html', context)
+
+@login_required(login_url='/employee/login')
+def delete_client(request, id):
+    if not re.search(r'^[\d]+$', str(id)):
+        return redirect('/employee/clients')
+
+    if not User.objects.filter(id=id).count():
+        messages.error(request, 'Este usuário não existe.')
+        return redirect('/employee/clients')
+
+    try:
+        User.objects.filter(id=id).delete()
+        messages.success(request, 'Cliente excluído com sucesso!')
+    except Exception:
+        messages.error(request, 'Ocorreu algum erro ao excluir o usuário.')
+
+    return redirect('/employee/clients')
 
 def api(request):
     if request.method == 'GET':
