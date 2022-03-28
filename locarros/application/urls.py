@@ -26,16 +26,19 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('vehicles/', views.vehicles, name='vehicles'),
     path('contact/', views.contact, name='contact'),
+
     path('employee/login/', views.employee_login, name='employee-login'),
     path('employee/leases/', views.employee_leases, name='employee-leases'),
     path('employee/clients/', views.employee_clients, name='employee-clients'),
-    path('employee/edit/lease/<int:id>/', views.edit_lease, name='employee-edit-lease'),
-    path('employee/delete/lease/<int:id>/', views.delete_client, name='employee-delete-lease'),
-    path('employee/edit/client/<int:id>/', views.edit_client, name='employee-edit-client'),
-    path('employee/delete/client/<int:id>/', views.delete_client, name='employee-delete-client'),
     path('employee/vehicles/', views.employee_vehicles, name='employee-vehicles'),
+    path('employee/edit/lease/<int:id>/', views.edit_lease, name='employee-edit-lease'),
+    path('employee/edit/client/<int:id>/', views.edit_client, name='employee-edit-client'),
+    path('employee/delete/lease/<int:id>/', views.delete_lease, name='employee-delete-lease'),
+    path('employee/delete/client/<int:id>/', views.delete_client, name='employee-delete-client'),
+
     path('register/vehicles/', views.register_vehicles, name='register-vehicles'),
     path('register/leases/', views.register_leases, name='register-leases'),
+
     path('api/vehicles/', views.api_vehicles, name='api-vehicles'),
     path('api/vehicle/<int:id>', views.api_vehicle, name='api-vehicle'),
 ]

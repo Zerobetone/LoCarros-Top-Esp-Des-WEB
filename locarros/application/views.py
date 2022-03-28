@@ -1,5 +1,3 @@
-from http import client
-from pydoc import cli
 import re
 import json
 from datetime import datetime
@@ -608,6 +606,26 @@ def delete_client(request, id):
         messages.error(request, 'Ocorreu algum erro ao excluir o usuário.')
 
     return redirect('/employee/clients')
+
+@login_required(login_url='/employee/login')
+def delete_lease(request, id):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
+    if not re.search(r'^[\d]+$', str(id)):
+        return redirect('/employee/leases')
+
+    if not Location.objects.filter(id=id).count():
+        messages.error(request, 'Essa locação não existe.')
+        return redirect('/employee/leases')
+
+    try:
+        Location.objects.filter(id=id).delete()
+        messages.success(request, 'Locação excluída com sucesso!')
+    except Exception:
+        messages.error(request, 'Ocorreu algum erro ao excluir a locação.')
+
+    return redirect('/employee/leases')
 
 def api_vehicle(request, id):
     if not re.search(r'^[\d]+$', str(id)):
