@@ -525,6 +525,71 @@ def edit_client(request, id):
     return render(request, 'employee/clients/edit/index.html', context)
 
 @login_required(login_url='/employee/login')
+def edit_lease(request, id):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
+    if not re.search(r'^[\d]+$', str(id)):
+        return redirect('/employee/leases')
+
+    if not Location.objects.filter(id=id).count():
+        messages.error(request, 'Essa locação não existe.')
+        return redirect('/employee/leases')
+    
+    if request.method == 'POST':
+        client_id = request.POST['client']
+        vehicle_id = request.POST['vehicle']
+        lease_date = request.POST['lease-date']
+        due_date = request.POST['due-date']
+        daily_rate = request.POST['daily-rate']
+        total = request.POST['total']
+        description = request.POST['description']
+
+        if not re.search(r'^[\d]+$', client_id):
+            return redirect('/employee/leases')
+
+        if not re.search(r'^[\d]+$', vehicle_id):
+            return redirect('/employee/leases')
+
+        if not re.search(r'^[\d]{4}-[\d]{2}-[\d]{2}$', lease_date):
+            return redirect('/employee/leases')
+
+        if not re.search(r'^[\d]{4}-[\d]{2}-[\d]{2}$', due_date):
+            return redirect('/employee/leases')
+
+        if not re.search(r'^[\w ]{3,255}$', description):
+            return redirect('/employee/leases')
+
+        try:
+            total = float(total)
+            daily_rate = float(daily_rate)
+        except:
+            return redirect('/employee/leases')
+
+        client = Client.objects.get(id=client_id)
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+
+        try:
+            Location.objects.filter(id=id).update(client=client, vehicle=vehicle, lease_date=lease_date, due_date=due_date, daily_rate=daily_rate, total=total, description=description)
+            messages.success(request, 'Dados atualizados com sucesso!')
+        except Exception:
+            messages.error(request, 'Ocorreu algum erro ao atualizar os dados.')
+
+        return redirect(f'/employee/edit/lease/{id}')
+
+    clients = Client.objects.all()
+    vehicles = Vehicle.objects.all()
+    location = Location.objects.get(id=id)
+
+    context = {
+        'clients': clients,
+        'vehicles': vehicles,
+        'location': location
+    }
+    
+    return render(request, 'employee/leases/edit/index.html', context)
+
+@login_required(login_url='/employee/login')
 def delete_client(request, id):
     if not request.user.is_superuser:
         return redirect('/')

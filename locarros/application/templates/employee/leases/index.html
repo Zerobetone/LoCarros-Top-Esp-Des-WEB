@@ -142,7 +142,7 @@
                                     <td>{{ location.due_date | date:"d/m/Y" }}</td>
                                     <td>{{ location.description }}</td>
                                     <td>
-                                        <a href="#">
+                                        <a href="{% url 'employee-edit-lease' location.id %}">
                                             <i class="bi bi-pencil-square" style="color: green; font-size: 18px;"></i>
                                         </a>
                                     </td>
