@@ -72,7 +72,7 @@
                     <h2>Locações</h2>
                     <ol>
                         <li><a href="{% url 'index' %}">Início</a></li>
-                        <li>Lista de locações</li>
+                        <li>Locações</li>
                     </ol>
                 </div>
             </div>
@@ -93,10 +93,11 @@
 
                         <div class="col-md-2 form-group mt-md-0" style="min-width: 230px;">
                             <select class="form-select" name="option" required>
+                                <option value="id">ID</option>
                                 <option value="client">Cliente</option>
                                 <option value="vehicle">Veículo</option>
-                                <option value="lease-date">Data de Locação</option>
-                                <option value="due-date">Data de Vencimento</option>
+                                <option value="lease-date">Data de locação</option>
+                                <option value="due-date">Data de vencimento</option>
                             </select>
                         </div>
 

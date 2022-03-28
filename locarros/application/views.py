@@ -242,7 +242,13 @@ def employee_leases(request):
         option = request.POST['option']
         search = request.POST['search']
 
-        if option == "client":
+        if option == "id":
+            if not re.search(r'^[\d]+$', search):
+                return redirect('/employee/leases')
+
+            locations = Location.objects.filter(id=search)
+
+        elif option == "client":
             if not re.search(r'^[A-Za-z ]{3,255}$', search):
                 return redirect('/employee/leases')
 
@@ -351,8 +357,7 @@ def register_leases(request):
             location.description = description
             location.save()
             messages.success(request, 'Cadastro realizado com sucesso!')
-        except Exception as error:
-            print(error)
+        except Exception:
             messages.error(request, 'Ocorreu algum erro ao cadastrar.')
 
         return redirect('/register/leases')
