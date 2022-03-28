@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
@@ -46,16 +47,9 @@ class Location(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     lease_date = models.DateField(blank=True)
     due_date = models.DateField(blank=True)
-    total = models.FloatField(blank=True, default=0.0)
     daily_rate = models.FloatField(blank=True, default=0.0)
-
-    CHOICES = (
-        ('opened', 'Em aberto'),
-        ('closed', 'Fechado')
-    )
-
-    status = models.CharField(max_length=9, choices=CHOICES, default='opened')
+    total = models.FloatField(blank=True, default=0.0)
     description = models.CharField(max_length=255, blank=True, default='')
 
     def __str__(self):
-        return str(self.vehicle)
+        return str(self.client)

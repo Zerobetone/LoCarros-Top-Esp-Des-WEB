@@ -1,3 +1,5 @@
+from http import client
+from pydoc import cli
 import re
 import json
 from datetime import datetime
@@ -235,8 +237,72 @@ def employee_login(request):
 def employee_leases(request):
     if not request.user.is_superuser:
         return redirect('/')
+
+    locations = []
+
+    if request.method == 'POST':
+        option = request.POST['option']
+        search = request.POST['search']
+
+        if option == "client":
+            if not re.search(r'^[A-Za-z ]{3,255}$', search):
+                return redirect('/employee/leases')
+
+            users = []
+            first_name = search.split(' ')[0]
+            last_name = ' '.join(search.split(' ')[1:])
+
+            if not last_name:
+                users = User.objects.filter(first_name__icontains=first_name)
+            else:
+                users = User.objects.filter(first_name__icontains=first_name, last_name__icontains=last_name)
+
+            for user in users:
+                client = Client.objects.get(user=user.id)
+                location = Location.objects.filter(client=client)
+
+                if location:
+                    locations.append(location[0])
+
+        elif option == "vehicle":
+            if not re.search(r'^[\w ]{3,255}$', search):
+                return redirect('/employee/leases')
+
+            vehicles = Vehicle.objects.filter(model__icontains=search)
+
+            for vehicle in vehicles:
+                location = Location.objects.get(vehicle=vehicle.id)
+                locations.append(location)
+
+        elif option == "lease-date":
+            if not re.search(r'^[\d]{2}/[\d]{2}/[\d]{4}$', search):
+                return redirect('/employee/leases')
+
+            formatted_date = search.split('/')[2] + '-' + search.split('/')[1] + '-' + search.split('/')[0]
+
+            locations = Location.objects.filter(lease_date=formatted_date)
+
+        elif option == "due-date":
+            if not re.search(r'^[\d]{2}/[\d]{2}/[\d]{4}$', search):
+                return redirect('/employee/leases')
+
+            formatted_date = search.split('/')[2] + '-' + search.split('/')[1] + '-' + search.split('/')[0]
+
+            locations = Location.objects.filter(due_date=formatted_date)
+
+        context = {
+            'locations': locations
+        }
+
+        return render(request, 'employee/leases/index.html', context)
     
-    return render(request, 'employee/leases/index.html')
+    locations = Location.objects.all()
+
+    context = {
+        'locations': locations
+    }
+
+    return render(request, 'employee/leases/index.html', context)
 
 @login_required(login_url='/employee/login')
 def register_leases(request):
@@ -273,8 +339,7 @@ def register_leases(request):
         except:
             return redirect('/register/leases')
 
-        user = User.objects.get(id=client_id)
-        client = Client.objects.get(user=user)
+        client = Client.objects.get(id=client_id)
         vehicle = Vehicle.objects.get(id=vehicle_id)
 
         try:

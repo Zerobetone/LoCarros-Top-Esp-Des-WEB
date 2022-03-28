@@ -29,7 +29,7 @@
                     <li><a href="{% url 'index' %}">Página Inicial</a></li>
                     
                     <li class="dropdown">
-                        <a href="#" class="active"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#"><span>Clientes</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="{% url 'employee-clients' %}">Listar</a></li>
                         </ul>
@@ -44,7 +44,7 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="#"><span>Locações</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#" class="active"><span>Locações</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="{% url 'employee-leases' %}">Listar</a></li>
                             <li><a href="{% url 'register-leases' %}">Cadastrar</a></li>
@@ -84,22 +84,19 @@
                     <h2>Lista de locações</h2>
                 </div>
 
-                <form action="{% url 'employee-clients' %}" method="POST">
+                <form action="{% url 'employee-leases' %}" method="POST">
                     {% csrf_token %}
                     <div class="row mb-5">
                         <div class="col-md-2 form-group mt-md-1">
                             <h5>Buscar por:</h5>
                         </div>
 
-                        <div class="col-md-2 form-group mt-md-0">
+                        <div class="col-md-2 form-group mt-md-0" style="min-width: 230px;">
                             <select class="form-select" name="option" required>
-                                <option value="id">ID</option>
-                                <option value="name">Nome</option>
-                                <option value="username">Usuário</option>
-                                <option value="email">E-mail</option>
-                                <option value="telephone">Telefone</option>
-                                <option value="cnh">CNH</option>
-                                <option value="birth-date">Nascimento</option>
+                                <option value="client">Cliente</option>
+                                <option value="vehicle">Veículo</option>
+                                <option value="lease-date">Data de Locação</option>
+                                <option value="due-date">Data de Vencimento</option>
                             </select>
                         </div>
 
@@ -107,7 +104,7 @@
                             <input type="text" class="form-control" name="search" pattern="^[A-Za-z0-9 @.-/]{1,255}$" title="Informe apenas letras e números." required>
                         </div>
 
-                        <div class="col-md-4 form-group mt-md-0">
+                        <div class="col-md-3 form-group mt-md-0">
                             <button type="submit" class="btn bg-secondary text-white" style="padding-left: 4rem; padding-right: 4rem;">Buscar</button>
                         </div>
                     </div>
@@ -118,39 +115,43 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Usuário</th>
-                                <th scope="col">E-mail</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">CNH</th>
-                                <th scope="col">Nascimento</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Cliente ID</th>
+                                <th scope="col">Veículo</th>
+                                <th scope="col">Veículo ID</th>
+                                <th scope="col">Diária (R$)</th>
+                                <th scope="col">Total (R$)</th>
+                                <th scope="col">Locação</th>
+                                <th scope="col">Vencimento</th>
+                                <th scope="col">Descrição</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for client in clients %}
-                                {% if not client.user.is_superuser %}
-                                    <tr>
-                                        <th scope="row">{{ client.user.id }}</th>
-                                        <td>{{ client.user.first_name }} {{ client.user.last_name }}</td>
-                                        <td>{{ client.user.username }}</td>
-                                        <td>{{ client.user.email }}</td>
-                                        <td>{{ client.telephone }}</td>
-                                        <td>{{ client.cnh }}</td>
-                                        <td>{{ client.birth_date | date:"d/m/Y" }}</td>
-                                        <td>
-                                            <a href="#">
-                                                <i class="bi bi-pencil-square" style="color: green; font-size: 18px;"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="#">
-                                                <i class="bi bi-trash" style="color: firebrick; font-size: 18px;"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endif %}
+                            {% for location in locations %}
+                                <tr>
+                                    <th scope="row">{{ location.id }}</th>
+                                    <td>{{ location.client.user.first_name }} {{ location.client.user.last_name }}</td>
+                                    <td>{{ location.client.user.id }}</td>
+                                    <td>{{ location.vehicle.model }}</td>
+                                    <td>{{ location.vehicle.id }}</td>
+                                    <td>{{ location.daily_rate }}</td>
+                                    <td>{{ location.total }}</td>
+                                    <td>{{ location.lease_date | date:"d/m/Y" }}</td>
+                                    <td>{{ location.due_date | date:"d/m/Y" }}</td>
+                                    <td>{{ location.description }}</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="bi bi-pencil-square" style="color: green; font-size: 18px;"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="bi bi-trash" style="color: firebrick; font-size: 18px;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>

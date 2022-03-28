@@ -111,7 +111,7 @@
                                             <select class="form-select" id="client" name="client" required>
                                                 {% for client in clients %}
                                                     {% if not client.user.is_superuser %}
-                                                        <option value="{{ client.user.id }}">{{ client.user.first_name }} {{ client.user.last_name }}</option>
+                                                        <option value="{{ client.id }}">{{ client.user.first_name }} {{ client.user.last_name }}</option>
                                                     {% endif %}
                                                 {% endfor %}
                                             </select>
