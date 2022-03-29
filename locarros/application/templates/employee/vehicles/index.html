@@ -119,7 +119,7 @@
                                 <h4>{{ vehicle.model }}</h4>
                                 <p>{{ vehicle.description }}</p>
                                 <a href="{{ vehicle.image.url }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ vehicle.model }}"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="Ver detalhes"><i class="bx bx-link"></i></a>
+                                <a href="{% url 'vehicle-details' vehicle.id %}" class="details-link" title="Ver detalhes"><i class="bx bx-link"></i></a>
                             </div>
                         </div>
                     {% endfor %}

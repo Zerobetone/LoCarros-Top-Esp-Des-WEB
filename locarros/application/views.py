@@ -1,4 +1,3 @@
-from pyexpat import model
 import re
 import json
 from datetime import datetime
@@ -195,6 +194,24 @@ def vehicles(request):
         return redirect('/')
     
     return render(request, 'vehicles/index.html')
+
+@login_required(login_url='/login')
+def vehicle_details(request, id):
+    if not re.search(r'^[\d]+$', str(id)):
+        return redirect('/')
+
+    if not Vehicle.objects.filter(id=id).count():
+        return redirect('/')
+
+    user = User.objects.get(id=request.user.id)
+    vehicle = Vehicle.objects.filter(id=id)[0]
+
+    context = {
+        'user': user,
+        'vehicle': vehicle
+    }
+
+    return render(request, 'vehicles/details/index.html', context)
 
 @login_required(login_url='/login')
 def contact(request):

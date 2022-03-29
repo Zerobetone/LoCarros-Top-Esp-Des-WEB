@@ -137,8 +137,8 @@
                                     <td>{{ location.client.user.id }}</td>
                                     <td>{{ location.vehicle.model }}</td>
                                     <td>{{ location.vehicle.id }}</td>
-                                    <td>{{ location.daily_rate }}</td>
-                                    <td>{{ location.total }}</td>
+                                    <td>{{ location.daily_rate | floatformat:2 }}</td>
+                                    <td>{{ location.total | floatformat:2 }}</td>
                                     <td>{{ location.lease_date | date:"d/m/Y" }}</td>
                                     <td>{{ location.due_date | date:"d/m/Y" }}</td>
                                     <td>{{ location.description }}</td>

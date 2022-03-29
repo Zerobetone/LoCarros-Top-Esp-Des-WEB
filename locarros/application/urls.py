@@ -26,6 +26,7 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('vehicles/', views.vehicles, name='vehicles'),
     path('contact/', views.contact, name='contact'),
+    path('details/vehicle/<int:id>/', views.vehicle_details, name='vehicle-details'),
 
     path('employee/login/', views.employee_login, name='employee-login'),
     path('employee/leases/', views.employee_leases, name='employee-leases'),
@@ -40,5 +41,5 @@ urlpatterns = [
     path('register/leases/', views.register_leases, name='register-leases'),
 
     path('api/vehicles/', views.api_vehicles, name='api-vehicles'),
-    path('api/vehicle/<int:id>', views.api_vehicle, name='api-vehicle'),
+    path('api/vehicle/<int:id>/', views.api_vehicle, name='api-vehicle'),
 ]
