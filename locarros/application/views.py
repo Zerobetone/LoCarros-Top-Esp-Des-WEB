@@ -1,3 +1,4 @@
+from pyexpat import model
 import re
 import json
 from datetime import datetime
@@ -206,8 +207,87 @@ def contact(request):
 def employee_vehicles(request):
     if not request.user.is_superuser:
         return redirect('/')
+
+    vehicles = []
+
+    if request.method == 'POST':
+        option = request.POST['option']
+        search = request.POST['search']
+
+        if option == "id":
+            if not re.search(r'^[\d]+$', search):
+                return redirect('/employee/vehicles')
+
+            vehicles = Vehicle.objects.filter(id=search)
+
+        elif option == "model":
+            if not re.search(r'^[\w ]{3,255}$', search):
+                return redirect('/employee/vehicles')
+
+            vehicles = Vehicle.objects.filter(model__icontains=search)
+
+        elif option == "license-plate":
+            if not re.search(r'^[\w ]{1,7}$', search):
+                return redirect('/employee/vehicles')
+
+            vehicles = Vehicle.objects.filter(license_plate__icontains=search)
+
+        elif option == "type":
+            if not re.search(r'^[A-Za-z]{3,11}$', search):
+                return redirect('/employee/vehicles')
+
+            type = ""
+
+            if "sedan" in search.lower():
+                type = "sedan"
+            elif "cupê" in search.lower():
+                type = "coupe"
+            elif "esportivo" in search.lower():
+                type = "sports"
+            elif "crossover" in search.lower():
+                type = "crossover"
+            elif "hatchback" in search.lower():
+                type = "hatchback"
+            elif "conversível" in search.lower():
+                type = "convertible"
+            elif "suv" in search.lower():
+                type = "suv"
+            elif "minivan" in search.lower():
+                type = "minivan"
+            elif "picape" in search.lower():
+                type = "pickup"
+            elif "jipe" in search.lower():
+                type = "jeep"
+            else:
+                return redirect('/employee/vehicles')
+
+            vehicles = Vehicle.objects.filter(type__icontains=type)
+        
+        elif option == "year":
+            if not re.search(r'^[\d]{4}$', search):
+                return redirect('/employee/vehicles')
+
+            vehicles = Vehicle.objects.filter(year=search)
+
+        elif option == "description":
+            if not re.search(r'^[\w ]{3,255}$', search):
+                return redirect('/employee/vehicles')
+
+            vehicles = Vehicle.objects.filter(description_icontains=search)
+
+        context = {
+            'vehicles': vehicles
+        }
+
+        return render(request, 'employee/vehicles/index.html', context)
     
-    return render(request, 'employee/vehicles/index.html')
+    vehicles = Vehicle.objects.all()
+
+    context = {
+        'vehicles': vehicles
+    }
+    
+    return render(request, 'employee/vehicles/index.html', context)
 
 def employee_login(request):
     if request.method == 'POST':

@@ -25,7 +25,7 @@ class Vehicle(models.Model):
         ('coupe', 'Cupê'),
         ('sports', 'Esportivo'),
         ('crossover', 'Crossover'),
-        ('hatchback', 'Hatch'),
+        ('hatchback', 'Hatchback'),
         ('convertible', 'Conversível'),
         ('suv', 'SUV'),
         ('minivan', 'Minivan'),
