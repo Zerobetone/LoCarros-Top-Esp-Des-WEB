@@ -225,9 +225,7 @@
 
         // Atribui a data atual ao campo de data de locação
 
-        var date = new Date();
-        var today = date.getFullYear() + "-" + String(date.getMonth()).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
-        document.getElementById("lease-date").value = today;
+        document.getElementById("lease-date").valueAsDate = new Date();
 
         // Faz uma requisição e atribui o valor da diária do veículo cadastrado
 

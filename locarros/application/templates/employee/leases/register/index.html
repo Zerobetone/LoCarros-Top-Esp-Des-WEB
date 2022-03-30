@@ -130,7 +130,7 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6 form-group mt-md-0">
                                             <label class="form-label">Locação</label>
-                                            <input type="date" class="form-control" id="lease-date" name="lease-date" required>
+                                            <input id="lease-date" type="date" class="form-control" name="lease-date" required>
                                         </div>
 
                                         <div class="col-md-6 form-group mt-md-0">
@@ -217,9 +217,7 @@
 
         // Atribui a data atual ao campo de data de locação
 
-        var date = new Date();
-        var today = date.getFullYear() + "-" + String(date.getMonth()).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
-        document.getElementById("lease-date").value = today;
+        document.getElementById("lease-date").valueAsDate = new Date();
 
         // Faz uma requisição e atribui o valor da diária do primeiro elemento ao campo do valor da diária
 
