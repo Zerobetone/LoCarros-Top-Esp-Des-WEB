@@ -12,16 +12,24 @@ from django.contrib import messages
 from .models import Client, Vehicle, Location
 
 def home(request):
-    return render(request, 'home/index.html')
+    vehicles = Vehicle.objects.all()
+
+    context = {
+        'vehicles': vehicles
+    }
+
+    return render(request, 'home/index.html', context)
 
 def index(request):
     if not request.user.is_authenticated:
         return redirect('/home')
 
     user = User.objects.get(id=request.user.id)
+    vehicles = Vehicle.objects.all()
 
     context = {
         'user': user,
+        'vehicles': vehicles
     }
 
     if user.is_superuser:
@@ -301,8 +309,14 @@ def services(request):
 def vehicles(request):
     if request.user.is_superuser:
         return redirect('/')
+
+    vehicles = Vehicle.objects.all()
+
+    context = {
+        'vehicles': vehicles
+    }
     
-    return render(request, 'vehicles/index.html')
+    return render(request, 'vehicles/index.html', context)
 
 @login_required(login_url='/login')
 def vehicle_details(request, id):

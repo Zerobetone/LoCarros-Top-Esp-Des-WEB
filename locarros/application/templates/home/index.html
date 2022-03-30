@@ -138,9 +138,7 @@
             </div>
         </div>
     </div>
-    <!--//NOSSOS SERVICOS-->
 
-    <!--CLIENTES-->
     <div id="clientes" class="block">
         <div class="container">
             <div class="row">
@@ -216,103 +214,30 @@
             </div>
         </div>
     </div>
-    <!--//CLIENTES-->
 
-    <!--SERVICOS-->
     <div class="block">
         <div class="container">
-            <h2 class="title text-center">Serviços</h2>
+            <h2 class="title text-center">Veículos</h2>
             <h4 class="subtitle text-center mb-4">
-                Locação Temporária, Curta ou a Longo Prazo
+                Cadastre-se e veja mais detalhes
             </h4>
 
-            <div class="row grid">
-                <div class="col-lg-4 col-6 mb-4 element-item website apps">
-                    <a href="{% static 'assets/servicos/1.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/1.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Fiat Toro</h5>
-                    <p class="mb-0">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
-                <div class="col-lg-4 col-6 mb-4 element-item email">
-                    <a href="{% static 'assets/servicos/2.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/2.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Yamaha FZ6</h5>
-                    <p class="mb-0 tags">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
-                <div class="col-lg-4 col-6 mb-4 element-item apps">
-                    <a href="{% static 'assets/servicos/4.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/4.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Quadriciclo</h5>
-                    <p class="mb-0 tags">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
-                <div class="col-lg-4 col-6 mb-4 element-item email">
-                    <a href="{% static 'assets/servicos/5.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/5.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Harley Davidson</h5>
-                    <p class="mb-0 tags">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
-                <div class="col-lg-4 col-6 mb-4 element-item apps graficos">
-                    <a href="{% static 'assets/servicos/6.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/6.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Chevrolet Onix</h5>
-                    <p class="mb-0 tags">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
-                <div class="col-lg-4 col-6 mb-4 element-item website">
-                    <a href="{% static 'assets/servicos/7.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/7.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Fiat Pulse</h5>
-                    <p class="mb-0 tags">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
-                <div class="col-lg-4 col-6 mb-4 element-item email">
-                    <a href="{% static 'assets/servicos/8.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/8.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Honda Titan</h5>
-                    <p class="mb-0 tags">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
-                <div class="col-lg-4 col-6 mb-4 element-item apps">
-                    <a href="{% static 'assets/servicos/9.jpg' %}" class="popup-link">
-                        <img src="{% static 'assets/servicos/9.jpg' %}" class="img-fluid mb-2" />
-                    </a>
-                    <h5 class="text-uppercase mt-2">Honda CBR</h5>
-                    <p class="mb-0 tags">
-                        <span class="badge bg-light text-dark">Lorem ipsum dolor sit amet.</span>
-                        <a href="#" class="btn btn-primary button button-primary">Alugar</a>
-                    </p>
-                </div>
+            <div class="row portfolio-container" style="margin-top: 40px;" data-aos="fade-up">
+                {% for vehicle in vehicles %}
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app mb-2">
+                        <img src="{{ vehicle.image.url }}" class="img-fluid" alt="Vehicle">
+                        <div class="portfolio-info mt-2">
+                            <h5>{{ vehicle.model }}</h5>
+                            <p>{{ vehicle.description }}</p>
+                            <a href="{{ vehicle.image.url }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ vehicle.model }}"><i class="bx bx-plus"></i></a>
+                            <a href="{% url 'vehicle-details' vehicle.id %}" class="details-link" title="Ver detalhes"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    <!--//SERVICOS-->
 
-    <!--DEPOIMENTOS-->
     <div id="depoimentos" class="block">
         <div class="container">
             <h2 class="title text-center">Feedbacks</h2>
@@ -368,9 +293,7 @@
             </div>
         </div>
     </div>
-    <!--//DEPOIMENTOS-->
 
-    <!--FOOTER-->
     <footer id="contato">
         <div class="container">
             <div class="email">
@@ -419,9 +342,7 @@
             </div>
         </div>
     </footer>
-    <!--//FOOTER-->
 
-    <!--JS-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
