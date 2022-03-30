@@ -1,3 +1,4 @@
+import os
 import re
 import json
 from datetime import datetime
@@ -173,6 +174,114 @@ def register_vehicles(request):
         return redirect('/register/vehicles')
 
     return render(request, 'employee/vehicles/register/index.html')
+
+@login_required(login_url='/employee/login')
+def edit_vehicle(request, id):
+    if not request.user.is_superuser:
+        return redirect('/')
+
+    if not re.search(r'^[\d]+$', str(id)):
+        return redirect('/')
+
+    if not Vehicle.objects.filter(id=id).count():
+        return redirect('/')
+    
+    if request.method == 'POST':
+        model = request.POST['model']
+        license_plate = request.POST['license-plate']
+        type = request.POST['type']
+        year = request.POST['year']
+        daily_rate = request.POST['daily-rate']
+        description = request.POST['description']
+
+        try:
+            image = request.FILES['image']
+        except Exception:
+            image = ""
+        
+        image_extension = str(image).split('.')[-1]
+
+        if not re.search(r'^[\w ]{3,50}$', model):
+            return redirect(f'/employee/edit/vehicle/{id}')
+
+        if not re.search(r'^[\w]{7}$', license_plate):
+            return redirect(f'/employee/edit/vehicle/{id}')
+
+        if not re.search(r'^(sedan|coupe|sports|crossover|hatchback|convertible|suv|minivan|pickup|jeep)$', type):
+            return redirect(f'/employee/edit/vehicle/{id}')
+
+        if image_extension:
+            if not re.search(r'^(png|jpg|jpeg|PNG|JPG|JPEG)$', image_extension):
+                return redirect(f'/employee/edit/vehicle/{id}')
+
+        if not re.search(r'^[\w ]{3,255}$', description):
+            return redirect(f'/employee/edit/vehicle/{id}')
+
+        try:
+            year = int(year)
+        except:
+            return redirect(f'/employee/edit/vehicle/{id}')
+
+        if year < 1951 or year > datetime.now().year:
+            return redirect(f'/employee/edit/vehicle/{id}')
+
+        try:
+            daily_rate = daily_rate.replace(',', '.', 1)
+            daily_rate = float(daily_rate)
+        except:
+            return redirect(f'/employee/edit/vehicle/{id}')
+
+        try:
+            if image_extension:
+                vehicle = Vehicle.objects.get(id=id)
+
+                if os.path.exists(vehicle.image.path):
+                    os.remove(vehicle.image.path)
+
+                vehicle.model = model
+                vehicle.license_plate = license_plate
+                vehicle.type = type
+                vehicle.year = year
+                vehicle.daily_rate = daily_rate
+                vehicle.image = image
+                vehicle.description = description
+                vehicle.save()
+            else:
+                Vehicle.objects.filter(id=id).update(model=model, license_plate=license_plate, type=type, year=year, daily_rate=daily_rate, description=description)
+
+            messages.success(request, 'Dados atualizados com sucesso!')
+        except Exception:
+            messages.error(request, 'Ocorreu algum erro ao atualizar os dados.')
+
+        return redirect(f'/employee/edit/vehicle/{id}')
+
+    vehicle = Vehicle.objects.filter(id=id)[0]
+
+    context = {
+        'vehicle': vehicle
+    }
+
+    return render(request, 'employee/vehicles/edit/index.html', context)
+
+@login_required(login_url='/employee/login')
+def delete_vehicle(request, id):
+    if not request.user.is_superuser:
+        return redirect('/')
+    
+    if not re.search(r'^[\d]+$', str(id)):
+        return redirect('/employee/vehicles')
+
+    if not Vehicle.objects.filter(id=id).count():
+        messages.error(request, 'Este veículo não existe.')
+        return redirect('/employee/vehicles')
+
+    try:
+        Vehicle.objects.filter(id=id).delete()
+        messages.success(request, 'Veículo excluído com sucesso!')
+    except Exception:
+        messages.error(request, 'Ocorreu algum erro ao excluir o veículo.')
+
+    return redirect('/employee/vehicles')
 
 @login_required(login_url='/login')
 def about(request):
