@@ -48,5 +48,3 @@ python manage.py runserver
 Navegue até [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 **O usuário e a senha do [painel administrativo](http://127.0.0.1:8000/admin) é ```admin```**.
-
-(Será adicionado mais detalhes após a conclusão do sistema)
